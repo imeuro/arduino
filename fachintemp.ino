@@ -6,6 +6,7 @@
 // done:
 // - temperature sensor (calibrated?)
 // - LCD screen displaying current temperature
+// - green led when over 18 C, red if below
 //
 // todo:
 // - send an email when temperature drops below 18
