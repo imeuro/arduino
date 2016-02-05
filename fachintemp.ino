@@ -1,3 +1,22 @@
+//////////////////////////////////////////////////////
+// My personal project for a GSM thermostat 
+// using an Arduino Uno Rev3 and a Raspberry Pi 2
+//
+// still far from the final objective
+// done:
+// - temperature sensor (calibrated?)
+// - LCD screen displaying current temperature
+//
+// todo:
+// - send an email when temperature drops below 18
+// - buy GSM module
+// - make the GSM module work
+// - test test test and more tests possibly
+// - build a case and nicely assemble everything
+//
+//////////////////////////////////////////////////////
+
+
 // include the library code:
 #include <LiquidCrystal.h>
 
@@ -41,12 +60,12 @@ void loop() {
   if(tempC < 19.00) {
       digitalWrite(RedLedPin,HIGH);//turn on the red led
       digitalWrite(GreenLedPin,LOW);//turn off the green led
-      //Serial.print("\nmeno di 20");
+      //Serial.print("\n meno di 20");
       //Serial.print(tempC);
   } else {
       digitalWrite(RedLedPin,LOW);//turn on the red led
       digitalWrite(GreenLedPin,HIGH);//turn off the green led
-      //Serial.print("\noltre 20");
+      //Serial.print("\n oltre 20");
       //Serial.print(tempC);
   }
   
