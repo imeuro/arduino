@@ -5,5 +5,8 @@ while 1 :
         try:
                 curTemp=Ino.readline()
                 print curTemp
+                f=open("thermo/data/curTemp",'w')
+                f.write(curTemp)
+                f.close
         except:
                 pass
