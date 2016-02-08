@@ -2,14 +2,14 @@
 // My personal project for a GSM thermostat 
 // using an Arduino Uno Rev3 and a Raspberry Pi 2
 //
-// still far from the final objective
+// still far from the final objective... BUT:
 // done:
 // - temperature sensor (calibrated?)
 // - LCD screen displaying current temperature
-// - green led when over 18 C, red if below
+// - green led when over 19 C, red if below
 //
 // todo:
-// - send an email when temperature drops below 18
+// - send an email when temperature drops below 19
 // - buy GSM module
 // - make the GSM module work
 // - test test test and more tests possibly
@@ -31,9 +31,14 @@ LiquidCrystal lcd(12, 11, 5, 4, 3, 2);
 const int RedLedPin = 7;
 const int GreenLedPin = 8;
 
+// Preset Temps
+const int T1 = 8;
+const int T2 = 17;
+const int T3 = 20;
+
 void setup() {
   // Log: open the serial port at 9600 bps
-  //Serial.begin(9600);    
+  Serial.begin(9600);    
 
   // set up the LCD's number of columns and rows: 
   lcd.begin(16, 2);
@@ -49,7 +54,7 @@ void loop() {
   long a = analogRead(analogPin);
   //the calculating formula of temperature
   float tempC = beta /(log((1025.0 * 10 / a - 10) / 10) + beta / 298.0) - 273.0;
-  tempC = tempC -2; // calibration :)
+  //tempC = tempC -2; // manual calibration :)
   // set the cursor to column 0, line 1
   lcd.setCursor(0, 1);
   lcd.print(tempC);
@@ -62,14 +67,11 @@ void loop() {
       digitalWrite(RedLedPin,HIGH);//turn on the red led
       digitalWrite(GreenLedPin,LOW);//turn off the green led
       //Serial.print("\n meno di 20");
-      //Serial.print(tempC);
   } else {
       digitalWrite(RedLedPin,LOW);//turn on the red led
       digitalWrite(GreenLedPin,HIGH);//turn off the green led
       //Serial.print("\n oltre 20");
-      //Serial.print(tempC);
   }
-  
+  Serial.println(tempC);
   delay(5000); //wait for 5 sec then recheck
 }
-
