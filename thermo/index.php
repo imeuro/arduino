@@ -20,7 +20,7 @@
   <body>
   <?php
   $strTemp= file_get_contents("data/curTemp");
-  //$strTemp = nl2br($strTemp, true); // for XHMTL (in other words <br />). Use false for <br>. i.e $str = nl2br($str, false);
+  $strTemp = round($strTemp, 1);
   ?>
   <header class="text-center clearfix">
    <h1><span class="glyphicon glyphicon-home" aria-hidden="true"></span>&nbsp;&nbsp;Gestione Thermo</h1>
