@@ -26,7 +26,7 @@
     <div class="col-xs-12 col-sm-6 col-md-4 text-center">
       <div class=" well well-lg">
          Current Temp.<br />
-         <strong class="very-strong">18.4°C</strong>
+         <strong class="very-strong"><?php include('curTemp.txt');?>°C</strong>
        </div>
     </div>
     <div class="col-xs-12 col-sm-6 col-md-4 text-center">
@@ -40,13 +40,13 @@
       <h3>Set Temperature:</h3>
       <div class="btn-group btn-group-justified" role="group" aria-label="gigi">
         <div class="btn-group" role="group">
-          <button type="button" class="btn btn-default"><strong class="very-strong">T1</strong></button>
+          <button type="button" class="btn btn-default"><strong class="very-strong">T1</strong><br />8.0&deg;C</button>
         </div>
         <div class="btn-group" role="group">
-          <button type="button" class="btn btn-default"><strong class="very-strong">T2</strong></button>
+          <button type="button" class="btn btn-default"><strong class="very-strong">T2</strong><br />17.5&deg;C</button>
         </div>
         <div class="btn-group" role="group">
-          <button type="button" class="btn btn-default"><strong class="very-strong">T3</strong></button>
+          <button type="button" class="btn btn-default"><strong class="very-strong">T3</strong><br />19.5&deg;C</button>
         </div>      
       </div>
     </div>
