@@ -6,8 +6,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Gestione Thermo</title>
 
+    <link href="/thermo/css/reset.css" rel="stylesheet">
     <!-- Bootstrap -->
-    <link href="/thermo/node_modules/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/thermo/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/thermo/css/thermo.css" rel="stylesheet">
 
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
@@ -16,12 +18,40 @@
     <![endif]-->
   </head>
   <body>
+  <header class="text-center clearfix">
+   <h1><span class="glyphicon glyphicon-home" aria-hidden="true"></span>&nbsp;&nbsp;Gestione Thermo</h1>
+  </header>
+  <div class="container page-content">
 
-    <h1>Gestione Thermo</h1>
-    <div class="col-xs-12">
-	gigi!
+    <div class="col-xs-12 col-sm-6 col-md-4 text-center">
+      <div class=" well well-lg">
+         Current Temp.<br />
+         <strong class="very-strong">18.4°C</strong>
+       </div>
+    </div>
+    <div class="col-xs-12 col-sm-6 col-md-4 text-center">
+      <div class=" well well-lg">
+         Status<br />
+         <strong class="very-strong">OFF</strong>
+      </div>
     </div>
 
+    <div class="col-xs-12">
+      <h3>Set Temperature:</h3>
+      <div class="btn-group btn-group-justified" role="group" aria-label="gigi">
+        <div class="btn-group" role="group">
+          <button type="button" class="btn btn-default"><strong class="very-strong">T1</strong></button>
+        </div>
+        <div class="btn-group" role="group">
+          <button type="button" class="btn btn-default"><strong class="very-strong">T2</strong></button>
+        </div>
+        <div class="btn-group" role="group">
+          <button type="button" class="btn btn-default"><strong class="very-strong">T3</strong></button>
+        </div>      
+      </div>
+    </div>
+
+  </div><!-- / container page-content -->
 
 
 
@@ -30,6 +60,6 @@
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
-    <script src="/thermo/node_modules/bootstrap/js/bootstrap.min.js"></script>
+    <script src="/thermo/js/bootstrap.min.js"></script>
   </body>
 </html>
