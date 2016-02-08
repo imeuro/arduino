@@ -18,6 +18,10 @@
     <![endif]-->
   </head>
   <body>
+  <?php
+  $strTemp= file_get_contents("curTemp.txt");
+  $strTemp = nl2br($strTemp, true); // for XHMTL (in other words <br />). Use false for <br>. i.e $str = nl2br($str, false);
+  ?>
   <header class="text-center clearfix">
    <h1><span class="glyphicon glyphicon-home" aria-hidden="true"></span>&nbsp;&nbsp;Gestione Thermo</h1>
   </header>
@@ -26,7 +30,7 @@
     <div class="col-xs-12 col-sm-6 col-md-4 text-center">
       <div class=" well well-lg">
          Current Temp.<br />
-         <strong class="very-strong"><?php include('curTemp.txt');?>°C</strong>
+         <strong class="very-strong"><?php echo $strTemp; ?>°C</strong>
        </div>
     </div>
     <div class="col-xs-12 col-sm-6 col-md-4 text-center">
