@@ -19,7 +19,7 @@
   </head>
   <body>
   <?php
-  $strTemp= file_get_contents("data/curTemp");
+  $strTemp= file_get_contents("./data/curTemp");
   $strTemp = round($strTemp, 1);
   ?>
   <header class="text-center clearfix">
@@ -36,7 +36,8 @@
     <div class="col-xs-12 col-sm-6 col-md-4 text-center">
       <div class=" well well-lg">
          Status<br />
-         <strong class="very-strong">OFF</strong>
+         <strong class="very-strong">OFF</strong><br/>
+	 OFF/AUTO/MAN
       </div>
     </div>
 
