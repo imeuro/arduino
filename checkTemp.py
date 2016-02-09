@@ -1,6 +1,11 @@
 import serial
 Ino = serial.Serial('/dev/ttyACM0', 9600, timeout=30)
 
+Ino.write('3')
+f=open("./thermo/data/curTx",'w')
+f.write('3')
+f.close
+
 while 1 :
         try:
                 curTemp=Ino.readline()

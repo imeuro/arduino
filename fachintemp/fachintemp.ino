@@ -30,6 +30,8 @@ LiquidCrystal lcd(12, 11, 5, 4, 3, 2);
 // red and green Led pins
 const int RedLedPin = 7;
 const int GreenLedPin = 8;
+char incomingByte = 0;
+
 
 void setup() {
   // Log: open the serial port at 9600 bps
@@ -40,7 +42,7 @@ void setup() {
   // Print a message to the LCD.
   lcd.print("Temp:");
   lcd.setCursor(0, 1);
-  lcd.print("Set:");
+  lcd.print("Prog:");
   pinMode(RedLedPin,OUTPUT);
   pinMode(GreenLedPin,OUTPUT);
 
@@ -56,24 +58,39 @@ void loop() {
   // set the cursor to column 0, line 1
   // (note: line 1 is the second row, since counting begins with 0):
   lcd.setCursor(8, 0);
-  lcd.print(tempC);
-  //lcd.setCursor(14, 0);
-  //lcd.print("C");
-  lcd.setCursor(8, 1);
-  lcd.print("T2");
-
-  if(tempC < 19.00) {
-    digitalWrite(RedLedPin,HIGH);//turn on the red led
-    digitalWrite(GreenLedPin,LOW);//turn off the green led
-  } 
-  else {
-    digitalWrite(RedLedPin,LOW);//turn on the red led
-    digitalWrite(GreenLedPin,HIGH);//turn off the green led
+  lcd.print(tempC,1);
+  
+  if (Serial.available() > 0) {
+    // read the incoming byte:
+    incomingByte = Serial.read();
+    // say what you got:
+    //Serial.print("I received: ");
+    //Serial.println(incomingByte,DEC);
+    processProg(incomingByte);
   }
 
-  Serial.println(tempC);
+  Serial.println(tempC,1);
 
-  delay(30000); //wait for 30 sec then recheck
+  delay(5000); //wait for 5 sec then recheck
+}
+
+void processProg(char prog) {
+  lcd.setCursor(8, 1);
+  if (prog=='0') {
+    lcd.print("OFF    ");
+    digitalWrite(RedLedPin,LOW);//turn on the red led
+    digitalWrite(GreenLedPin,LOW);//turn off the green led
+  } else if (prog=='9') {
+    lcd.print("Auto   ");
+    digitalWrite(RedLedPin,HIGH);//turn on the red led
+    digitalWrite(GreenLedPin,LOW);//turn off the green led    
+  } else {
+    lcd.print("T");
+    lcd.print(prog);
+    lcd.print("     ");
+    digitalWrite(RedLedPin,LOW);//turn on the red led
+    digitalWrite(GreenLedPin,HIGH);//turn off the green led    
+  }
 }
 
 
