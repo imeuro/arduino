@@ -14,7 +14,6 @@ jQuery(document).ready(function() {
 	//set Program
 	jQuery('#setProg label').click(function() {
 		var sel_Prog = jQuery(this).children('input').val();
-		alert('fark '+sel_Prog);
 		jQuery('#Temp input[name=program]').val(sel_Prog);
 	})
 
