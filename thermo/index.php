@@ -20,7 +20,7 @@
   <body>
   <?php
   $strTemp= file_get_contents("./data/curTemp");  
-  $strProg= file_get_contents("./data/curTx");
+  $strProg= file_get_contents("./data/curProgram");
   $strTemp = round($strTemp, 1);
   ?>
   <header class="text-center clearfix">
@@ -28,77 +28,82 @@
   </header>
   <div class="container page-content">
 
-    <div class="col-xs-12 col-sm-6 col-md-4 text-center">
+    <div class="col-xs-12 col-sm-6 col-md-4 col-md-push-2 text-center margin-bottom">
       <div class=" well well-lg">
          Current Temp.<br />
          <strong class="very-strong"><?php echo $strTemp; ?>°C</strong>
        </div>
     </div>
-    <div class="col-xs-12 col-sm-6 col-md-4 text-center">
-      <div class=" well well-lg">
-         Status<br />
-         <strong class="very-strong">
-	<?php
-	switch($strProg) {
-		case "0" :
-			echo "OFF";
-			break;
-		case "1" :
-			echo "MAN/T1";
-			break;
-		case "2" :
-			echo "MAN/T2";
-			break;
-		case "3" :
-			echo "MAN/T3";
-			break;
-		case "9" :
-			echo "Auto";
-			break;
-	}
-	?>
-	</strong><br/>
-	 OFF/AUTO/MAN
+    <div class="col-xs-12 col-sm-6 col-md-4 col-md-push-2 text-center margin-bottom">
+      <div class=" well well-lg">Status<br />
+        <strong class="very-strong">
+      	<?php
+      	switch($strProg) {
+      		case "0" :
+      			echo "OFF";
+      			break;
+      		case "1" :
+      			echo "MAN/T1";
+      			break;
+      		case "2" :
+      			echo "MAN/T2";
+      			break;
+      		case "3" :
+      			echo "MAN/T3";
+      			break;
+      		case "9" :
+      			echo "Auto";
+      			break;
+      	}
+      	?>
+      	</strong>
       </div>
     </div>
 
-    <div class="col-xs-12">
-      <h3>Set mode:</h3>
-      <div class="btn-group btn-group-justified" role="group" aria-label="gigi">
-        <div class="btn-group" role="group">
-          <button type="button" class="btn btn-default" onclick="$('#Temp input[name=status]').val('OFF');"><strong class="very-strong">OFF</strong></button>
-        </div>
-        <div class="btn-group" role="group">
-          <button type="button" class="btn btn-default" onclick="$('#Temp input[name=status]').val('AUTO');"><strong class="very-strong">AUTO</strong></button>
-        </div>
-        <div class="btn-group" role="group">
-          <button type="button" class="btn btn-default" onclick="$('#Temp input[name=status]').val('MAN');"><strong class="very-strong">MAN</strong></button>
-        </div>      
+    <div class="col-xs-12 margin-bottom" id="setMode">
+
+      <h4>Set Mode:</h4>
+      <div class="btn-group btn-group-justified" data-toggle="buttons">
+        <label class="btn btn-danger">
+          <input type="radio" name="mode" autocomplete="off" id="off" value="OFF" /><strong class="fairly-strong">OFF</strong>
+        </label>
+        <label class="btn btn-warning">
+          <input type="radio" name="mode" autocomplete="off" id="man" value="MAN"><strong class="fairly-strong">MAN</strong>
+        </label> 
+        <label class="btn btn-success">
+          <input type="radio" name="mode" autocomplete="off" id="auto" value="AUTO" /><strong class="fairly-strong">AUTO</strong>
+        </label>
       </div>
 
-    <div class="col-xs-12">
-      <h3>Set Temperature:</h3>
-      <div class="btn-group btn-group-justified" role="group" aria-label="gigi">
-        <div class="btn-group" role="group">
-          <button type="button" class="btn btn-default" onclick="$('#Temp input[name=program]').val('1');"><strong class="very-strong">T1</strong><br />8.0&deg;C</button>
-        </div>
-        <div class="btn-group" role="group">
-          <button type="button" class="btn btn-default" onclick="$('#Temp input[name=program]').val('2');"><strong class="very-strong">T2</strong><br />17.5&deg;C</button>
-        </div>
-        <div class="btn-group" role="group">
-          <button type="button" class="btn btn-default" onclick="$('#Temp input[name=program]').val('3');"><strong class="very-strong">T3</strong><br />19.5&deg;C</button>
-        </div>
+    </div>
+
+    <div class="col-xs-12 hidden margin-bottom" id="setProg">
+
+      <h4>Set Program:</h4>
+      <div class="btn-group btn-group-justified" data-toggle="buttons">
+        <label class="btn btn-primary btn-warning">
+          <input type="radio" name="program" autocomplete="off" id="1" value="1"><strong class="fairly-strong">T1</strong><br />8.0&deg;C
+        </label>
+        <label class="btn btn-primary btn-warning">
+          <input type="radio" name="program" autocomplete="off" id="2" value="2"><strong class="fairly-strong">T2</strong><br />17.5&deg;C
+        </label>
+        <label class="btn btn-primary btn-warning">
+          <input type="radio" name="program" autocomplete="off" id="3" value="3"><strong class="fairly-strong">T3</strong><br />19.5&deg;C
+        </label>
       </div>
 
     </div>
  
-    <div class="col-xs-12">   
-		<form action="./data/writer.php" type="post" id="Temp">
-			<input type="hidden" name="program" value="" />
-			<input type="hidden" name="status" value="" />
-			<button type="submit" class="btn btn-lg" value="save">save</button>
-		</form>
-   </div>
+    <div class="col-xs-12 margin-bottom"> 
+
+  		<form action="./data/writer.php" method="POST" id="Temp" class="row">
+        <input type="hidden" name="mode" value="" />
+  			<input type="hidden" name="program" value="" />
+  			<br />
+  			<button type="submit" class="btn btn-lg btn-default col-xs-12 col-sm-6 col-sm-push-3 col-md-4 col-md-push-4" value="save"><span class="glyphicon glyphicon-floppy-disk"></span> CONFIRM</button>
+  		</form>
+
+    </div>
    
   </div><!-- / container page-content -->
 
@@ -108,5 +113,6 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script src="js/bootstrap.min.js"></script>
+    <script src="js/thermo.js"></script>
   </body>
 </html>

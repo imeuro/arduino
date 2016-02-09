@@ -25,19 +25,25 @@
 	</script>
 
 <?php
-$status=$_POST['status'];
-$program=$_POST['program'];
-
-if  ($status) :
-	$fp = fopen('curStatus',w);
-	fwrite($fp,$status);
-	fclose();
+// recuperone
+if ( isset($_POST['mode']) && !empty($_POST['mode']) ) :
+  $mode=$_POST['mode'];
+endif;
+if ( isset($_POST['program']) && !empty($_POST['program']) ) :
+  $program=$_POST['program'];
 endif;
 
-if  ($program) :
-	$fp = fopen('curTx',w);
+// scrivone
+if (isset($mode)) :
+	$fp = fopen("curMode","w") or die("Unable to open file!");
+	fwrite($fp,$mode);
+	fclose($fp);
+endif;
+
+if (isset($program)) :
+	$fp = fopen("curProgram","w") or die("Unable to open file!");
 	fwrite($fp,$program);
-	fclose();
+	fclose($fp);
 endif;
 ?>
 
@@ -46,8 +52,27 @@ endif;
   </header>
   <div class="container page-content">
 
-    <div class="col-xs-12 text-center">
-      Updating...
+    <div class="col-xs-12 col-sm-6 col-sm-push-3 text-center">
+      <?php 
+      if ( isset($mode) ) : 
+        echo '<h4 class="alert alert-success" role="success">';
+        echo '<span class="glyphicon glyphicon-ok-sign"></span> <b>Done!</b></h4>';
+        echo '<p>MODE is set to <h2>'.$mode.'</h2></p><br />';
+      endif;
+      if ( isset($program) ) : 
+        echo '<h4 class="alert alert-success" role="success">';
+        echo '<span class="glyphicon glyphicon-ok-sign"></span> <b>Done!</b></h4>';
+        echo '<p>PROGRAM is set to <h2>'.$program.'</h2></p><br />';
+      endif;
+      if ( !isset($mode) && !isset($program)  ):
+        echo '<h4 class="alert alert-warning" role="warning">';
+        echo '<span class="glyphicon glyphicon-remove-circle"></span> Error!</h4>';
+        echo 'Nothing has changed so far...<br />';
+      endif;
+      ?>
+      <br />
+      <hr class="col-xs-12" />
+      <p class="clearfix"><a href="../" class="btn btn-default"><span class="glyphicon glyphicon-chevron-left"></span> Back to the previous page</a></p>
     </div>
 
   </div><!-- / container page-content -->
