@@ -42,27 +42,27 @@ endif;
 
 if (isset($mode)) {
   switch ($mode) {
-    case OFF:
+    case 'OFF':
       $fp = fopen($serialPort, "w") or die("Sorry, unable to communicate Mode via serial port");
       fwrite($fp, 0); /* this is the number that it will write */
       fclose($fp);
     break;
-    case AUTO:
+    case 'AUTO':
       $fp =fopen($serialPort, "w") or die("Sorry, unable to communicate Mode via serial port");
       fwrite($fp, 9); /* this is the number that it will write */
       fclose($fp);
     break;
-    case MAN/T1:
+    case 'MAN/T1':
       $fp =fopen($serialPort, "w") or die("Sorry, unable to communicate Mode via serial port");
       fwrite($fp, 1); /* this is the number that it will write */
       fclose($fp);
     break;
-    case MAN/T2:
+    case 'MAN/T2':
       $fp =fopen($serialPort, "w") or die("Sorry, unable to communicate Mode via serial port");
       fwrite($fp, 2); /* this is the number that it will write */
       fclose($fp);
     break;
-    case MAN/T3:
+    case 'MAN/T3':
       $fp =fopen($serialPort, "w") or die("Sorry, unable to communicate Mode via serial port");
       fwrite($fp, 3); /* this is the number that it will write */
       fclose($fp);
