@@ -1,8 +1,9 @@
 jQuery(document).ready(function() {
-
+  var sel_Mode;
+  var sel_Prog;
 	// set Mode
 	jQuery('#setMode label').click(function() {
-		var sel_Mode = jQuery(this).children('input').val();
+		sel_Mode = jQuery(this).children('input').val();
 		if (sel_Mode==="MAN") {
 			jQuery('#setProg').removeClass('hidden');
 		} else {
@@ -13,7 +14,7 @@ jQuery(document).ready(function() {
 
 	//set Program
 	jQuery('#setProg label').click(function() {
-		var sel_Prog = jQuery(this).children('input').val();
+		sel_Prog = jQuery(this).children('input').val();
 		jQuery('#Temp input[name=mode]').val(sel_Mode+'/'+sel_Prog);
 	})
 
