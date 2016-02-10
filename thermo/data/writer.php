@@ -73,6 +73,7 @@ if (isset($mode)) {
     break;
     default:
       die('Crap, something went wrong...');
+  }
 }
 
 
