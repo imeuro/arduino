@@ -21,7 +21,6 @@
   <?php
   $strTemp= file_get_contents("./data/curTemp"); 
   $strMode= file_get_contents("./data/curMode");
-  $strProg= file_get_contents("./data/curProgram");
   $strTemp = round($strTemp, 1);
   ?>
   <header class="text-center clearfix">
