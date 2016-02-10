@@ -19,7 +19,8 @@
   </head>
   <body>
   <?php
-  $strTemp= file_get_contents("./data/curTemp");  
+  $strTemp= file_get_contents("./data/curTemp"); 
+  $strMode= file_get_contents("./data/curMode");
   $strProg= file_get_contents("./data/curProgram");
   $strTemp = round($strTemp, 1);
   ?>
@@ -37,25 +38,7 @@
     <div class="col-xs-12 col-sm-6 col-md-4 col-md-push-2 text-center margin-bottom">
       <div class=" well well-lg">Status<br />
         <strong class="very-strong">
-      	<?php
-      	switch($strProg) {
-      		case "0" :
-      			echo "OFF";
-      			break;
-      		case "1" :
-      			echo "MAN/T1";
-      			break;
-      		case "2" :
-      			echo "MAN/T2";
-      			break;
-      		case "3" :
-      			echo "MAN/T3";
-      			break;
-      		case "9" :
-      			echo "Auto";
-      			break;
-      	}
-      	?>
+      	<?php echo $strMode; ?>
       	</strong>
       </div>
     </div>
@@ -82,13 +65,13 @@
       <h4>Set Program:</h4>
       <div class="btn-group btn-group-justified" data-toggle="buttons">
         <label class="btn btn-primary btn-warning">
-          <input type="radio" name="program" autocomplete="off" id="1" value="1"><strong class="fairly-strong">T1</strong><br />8.0&deg;C
+          <input type="radio" name="program" autocomplete="off" id="1" value="T1"><strong class="fairly-strong">T1</strong><br />8.0&deg;C
         </label>
         <label class="btn btn-primary btn-warning">
-          <input type="radio" name="program" autocomplete="off" id="2" value="2"><strong class="fairly-strong">T2</strong><br />17.5&deg;C
+          <input type="radio" name="program" autocomplete="off" id="2" value="T2"><strong class="fairly-strong">T2</strong><br />17.5&deg;C
         </label>
         <label class="btn btn-primary btn-warning">
-          <input type="radio" name="program" autocomplete="off" id="3" value="3"><strong class="fairly-strong">T3</strong><br />19.5&deg;C
+          <input type="radio" name="program" autocomplete="off" id="3" value="T3"><strong class="fairly-strong">T3</strong><br />19.5&deg;C
         </label>
       </div>
 
