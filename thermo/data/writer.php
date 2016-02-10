@@ -33,18 +33,51 @@ if ( isset($_POST['program']) && !empty($_POST['program']) ) :
   $program=$_POST['program'];
 endif;
 
-// scrivone
+// scrivone su file (why???)
 if (isset($mode)) :
-	$fp = fopen("curMode","w") or die("Unable to open file!");
+	$fp = fopen("curMode","w") or die("Sorry, unable to open file!");
 	fwrite($fp,$mode);
 	fclose($fp);
 endif;
 
 if (isset($program)) :
-	$fp = fopen("curProgram","w") or die("Unable to open file!");
+	$fp = fopen("curProgram","w") or die("Sorry, unable to open file!");
 	fwrite($fp,$program);
 	fclose($fp);
 endif;
+
+// e invione a Arduino via serial port
+ $serialPort = "/dev/ttyACM0";
+
+if (isset($mode)) {
+  switch ($mode) {
+    case OFF:
+      $fp =fopen($serialPort, "w") or die("Sorry, unable to communicate Mode via serial port");
+      fwrite($fp, 0); /* this is the number that it will write */
+      fclose($fp);
+    break;
+    case AUTO:
+      $fp =fopen($serialPort, "w") or die("Sorry, unable to communicate Mode via serial port");
+      fwrite($fp, 9); /* this is the number that it will write */
+      fclose($fp);
+    break;
+    case MAN:
+        $fp =fopen($serialPort, "w") or die("Sorry, unable to communicate Mode via serial port");
+      if (isset($program)) {
+        fwrite($fp, $program); /* this is the number that it will write */
+      } else {
+        fwrite($fp, 1);
+        echo 'arbitrarily sticking to T1, come back and tell me what program you need';
+      }
+        fclose($fp);
+    break;
+    default:
+      die('Crap, something went wrong...');
+}
+
+
+
+
 ?>
 
   <header class="text-center clearfix">
