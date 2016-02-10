@@ -19,9 +19,14 @@
   </head>
   <body>
   <?php
-  $strTemp= file_get_contents("./data/curTemp"); 
+  $serialPort = "/dev/ttyACM0";
+  $fp = fopen($serialPort, "w") or die("Sorry, unable to communicate Mode via serial port");
+  $strTemp = fread($fp);
+  fclose($fp);
+
+  //$strTemp= file_get_contents("./data/curTemp"); 
   $strMode= file_get_contents("./data/curMode");
-  $strTemp = round($strTemp, 1);
+  //$strTemp = round($strTemp, 1);
   ?>
   <header class="text-center clearfix">
    <h1><span class="glyphicon glyphicon-home" aria-hidden="true"></span>&nbsp;&nbsp;Gestione Thermo</h1>
