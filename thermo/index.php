@@ -18,20 +18,23 @@
     <![endif]-->
   </head>
   <body>
-  <?php
-  $serialPort = "/dev/ttyACM0";
-  $strTemp;
-  if ($handle = fopen($serialPort, "rb"))	 {
-    $strTemp = fread($handle, 8);		// we get 8 bytes from our device
-    fclose($handle);
-  }
-  $strMode= file_get_contents("./data/curMode");
-  ?>
+
   <header class="text-center clearfix">
    <h1><span class="glyphicon glyphicon-home" aria-hidden="true"></span>&nbsp;&nbsp;Gestione Thermo</h1>
   </header>
   <div class="container page-content">
 
+    <?php
+    $serialPort = "/dev/ttyACM0";
+    $strTemp;
+    if ($handle = fopen($serialPort, "a+"))	 {
+      $strTemp = fread($handle, 8);		// we get 8 bytes from our device
+      print 'aaaaa'.$strTemp;
+      fclose($handle);
+    }
+    $strMode= file_get_contents("./data/curMode");
+    ?>
+    
     <div class="col-xs-12 col-sm-6 col-md-4 col-md-push-2 text-center margin-bottom">
       <div class=" well well-lg">
          Current Temp.<br />
