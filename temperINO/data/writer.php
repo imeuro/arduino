@@ -30,9 +30,9 @@ if ( isset($_POST['mode']) && !empty($_POST['mode']) ) :
   $mode=$_POST['mode'];
 endif;
 
-// scrivone su file (why???)
+// scrivone su file (siam sicuri che serve???)
 if (isset($mode)) :
-	$fp = fopen("curMode","w") or die("Sorry, unable to open file!");
+	$fp = fopen("curMode","w") or die("Sorry, unable to save desired Mode (curMode)!");
 	fwrite($fp,$mode);
 	fclose($fp);
 endif;
