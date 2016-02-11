@@ -57,7 +57,7 @@ void loop() {
 
   // set the cursor to column 0, line 1
   // (note: line 1 is the second row, since counting begins with 0):
-  lcd.setCursor(8, 0);
+  lcd.setCursor(5, 0);
   lcd.print(tempC,1);
   
   if (Serial.available() > 0) {
@@ -75,7 +75,7 @@ void loop() {
 }
 
 void processProg(char prog) {
-  lcd.setCursor(8, 1);
+  lcd.setCursor(5, 1);
   if (prog=='0') {
     lcd.print("OFF    ");
     digitalWrite(RedLedPin,LOW);//turn on the red led
