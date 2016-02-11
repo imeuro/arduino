@@ -41,7 +41,7 @@
 
     $serial->sendMessage("s"); 
     $read = $serial->readPort();
-    print $read;
+    print 'qqqq'.$read;
     $serial->deviceClose();
 
     $strMode= file_get_contents("./data/curMode");
@@ -50,7 +50,7 @@
     <div class="col-xs-12 col-sm-6 col-md-4 col-md-push-2 text-center margin-bottom">
       <div class=" well well-lg">
          Current Temp.<br />
-         <strong class="very-strong"><?php echo $strTemp; ?>°C</strong>
+         <strong class="very-strong"><?php echo $read; ?>°C</strong>
        </div>
     </div>
     <div class="col-xs-12 col-sm-6 col-md-4 col-md-push-2 text-center margin-bottom">
