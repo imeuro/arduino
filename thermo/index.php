@@ -25,10 +25,11 @@
   <div class="container page-content">
 
     <?php
-    require "./data/php_serial.class.php";
     error_reporting(E_ALL);
     ini_set("display_errors", 1);
     define("PORT","/dev/ttyACM0");
+    
+    include "php_serial.class.php";
     $serial = new phpSerial;
     $serial->deviceSet(PORT);
     $serial->confBaudRate(9600);
@@ -37,9 +38,12 @@
     $serial->confStopBits(1);
     $serial->confFlowControl("none");
     $serial->deviceOpen();
-    $strTemp = $serial->readPort();
-    print 'aaaaaaaaaa'.$strTemp;
+
+    $serial->sendMessage("s"); 
+    $read = $serial->readPort();
+    print $read;
     $serial->deviceClose();
+
     $strMode= file_get_contents("./data/curMode");
     ?>
     
