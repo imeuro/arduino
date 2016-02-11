@@ -26,7 +26,9 @@
 
     <?php
     require "./data/php_serial.class.php";
-    $serialPort = "/dev/ttyACM0";
+    error_reporting(E_ALL);
+    ini_set("display_errors", 1);
+    define("PORT","/dev/ttyACM0");
     $serial = new phpSerial;
     $serial->deviceSet(PORT);
     $serial->confBaudRate(9600);
