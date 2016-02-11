@@ -29,22 +29,48 @@
 if ( isset($_POST['mode']) && !empty($_POST['mode']) ) :
   $mode=$_POST['mode'];
 endif;
-if ( isset($_POST['program']) && !empty($_POST['program']) ) :
-  $program=$_POST['program'];
-endif;
 
-// scrivone
+// scrivone su file (why???)
 if (isset($mode)) :
-	$fp = fopen("curMode","w") or die("Unable to open file!");
+	$fp = fopen("curMode","w") or die("Sorry, unable to open file!");
 	fwrite($fp,$mode);
 	fclose($fp);
 endif;
 
-if (isset($program)) :
-	$fp = fopen("curProgram","w") or die("Unable to open file!");
-	fwrite($fp,$program);
-	fclose($fp);
-endif;
+// e invione a Arduino via serial port
+ $serialPort = "/dev/ttyACM0";
+
+if (isset($mode)) {
+  switch ($mode) {
+    case 'OFF':
+      $fp = fopen($serialPort, "w") or die("Sorry, unable to communicate Mode via serial port");
+      fwrite($fp, 0); /* this is the number that it will write */
+      fclose($fp);
+    break;
+    case 'AUTO':
+      $fp =fopen($serialPort, "w") or die("Sorry, unable to communicate Mode via serial port");
+      fwrite($fp, 9); /* this is the number that it will write */
+      fclose($fp);
+    break;
+    case 'MAN/T1':
+      $fp =fopen($serialPort, "w") or die("Sorry, unable to communicate Mode via serial port");
+      fwrite($fp, 1); /* this is the number that it will write */
+      fclose($fp);
+    break;
+    case 'MAN/T2':
+      $fp =fopen($serialPort, "w") or die("Sorry, unable to communicate Mode via serial port");
+      fwrite($fp, 2); /* this is the number that it will write */
+      fclose($fp);
+    break;
+    case 'MAN/T3':
+      $fp =fopen($serialPort, "w") or die("Sorry, unable to communicate Mode via serial port");
+      fwrite($fp, 3); /* this is the number that it will write */
+      fclose($fp);
+    break;
+    default:
+      die('Crap, something went wrong...');
+  }
+}
 ?>
 
   <header class="text-center clearfix">
@@ -59,12 +85,7 @@ endif;
         echo '<span class="glyphicon glyphicon-ok-sign"></span> <b>Done!</b></h4>';
         echo '<p>MODE is set to <h2>'.$mode.'</h2></p><br />';
       endif;
-      if ( isset($program) ) : 
-        echo '<h4 class="alert alert-success" role="success">';
-        echo '<span class="glyphicon glyphicon-ok-sign"></span> <b>Done!</b></h4>';
-        echo '<p>PROGRAM is set to <h2>'.$program.'</h2></p><br />';
-      endif;
-      if ( !isset($mode) && !isset($program)  ):
+      if ( !isset($mode)  ):
         echo '<h4 class="alert alert-warning" role="warning">';
         echo '<span class="glyphicon glyphicon-remove-circle"></span> Error!</h4>';
         echo 'Nothing has changed so far...<br />';
