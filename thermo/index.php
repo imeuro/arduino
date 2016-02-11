@@ -25,13 +25,19 @@
   <div class="container page-content">
 
     <?php
+    require "./data/php_serial.class.php";
     $serialPort = "/dev/ttyACM0";
-    $strTemp;
-    if ($handle = fopen($serialPort, "a+"))	 {
-      $strTemp = fread($handle, 8);		// we get 8 bytes from our device
-      print 'aaaaa'.$strTemp;
-      fclose($handle);
-    }
+    $serial = new phpSerial;
+    $serial->deviceSet(PORT);
+    $serial->confBaudRate(9600);
+    $serial->confParity("none");
+    $serial->confCharacterLength(8);
+    $serial->confStopBits(1);
+    $serial->confFlowControl("none");
+    $serial->deviceOpen();
+    $strTemp = $serial->readPort();
+    print 'aaaaaaaaaa'.$strTemp;
+    $serial->deviceClose();
     $strMode= file_get_contents("./data/curMode");
     ?>
     
