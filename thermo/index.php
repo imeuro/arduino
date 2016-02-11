@@ -29,7 +29,7 @@
     ini_set("display_errors", 1);
     define("PORT","/dev/ttyACM0");
     
-    include "php_serial.class.php";
+    include "data/php_serial.class.php";
     $serial = new phpSerial;
     $serial->deviceSet(PORT);
     $serial->confBaudRate(9600);
