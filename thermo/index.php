@@ -20,7 +20,7 @@
   <body>
   <?php
   $serialPort = "/dev/ttyACM0";
-  $fp = fopen($serialPort, "w") or die("Sorry, unable to communicate Mode via serial port");
+  $fp = fopen($serialPort, "rb") or die("Sorry, unable to communicate Mode via serial port");
   $strTemp = fread($fp);
   fclose($fp);
 
