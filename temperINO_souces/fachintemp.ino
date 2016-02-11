@@ -4,12 +4,13 @@
 //
 // still far from the final objective
 // done:
-// - temperature sensor (calibrated?)
+// - temperature sensor
 // - LCD screen displaying current temperature
-// - green led when over 19 C, red if below
+// - orange led when in MANUAL mode, green when AUTO
 //
 // todo:
-// - send an email when temperature drops below 19
+// - time! I need to know what time is it for AUTO!! 
+// - complete programming for AUTO mode
 // - buy GSM module
 // - make the GSM module work
 // - test test test and more tests possibly
@@ -28,7 +29,7 @@
 // initialize the library with the numbers of the interface pins
 LiquidCrystal lcd(12, 11, 5, 4, 3, 2);
 // red and green Led pins
-const int RedLedPin = 7;
+const int OrangeLedPin = 7;
 const int GreenLedPin = 8;
 char incomingByte = 0;
 
@@ -43,7 +44,7 @@ void setup() {
   lcd.print("Temp:");
   lcd.setCursor(0, 1);
   lcd.print("Prog:");
-  pinMode(RedLedPin,OUTPUT);
+  pinMode(OrangeLedPin,OUTPUT);
   pinMode(GreenLedPin,OUTPUT);
 
 }
@@ -78,18 +79,18 @@ void processProg(char prog) {
   lcd.setCursor(5, 1);
   if (prog=='0') {
     lcd.print("OFF    ");
-    digitalWrite(RedLedPin,LOW);//turn on the red led
-    digitalWrite(GreenLedPin,LOW);//turn off the green led
+    digitalWrite(OrangeLedPin,LOW);//turn off the orange led
+    digitalWrite(GreenLedPin,LOW);//turn on the green led
   } else if (prog=='9') {
     lcd.print("Auto   ");
-    digitalWrite(RedLedPin,HIGH);//turn on the red led
-    digitalWrite(GreenLedPin,LOW);//turn off the green led    
+    digitalWrite(OrangeLedPin,LOW);//turn off the orange led
+    digitalWrite(GreenLedPin,HIGH);//turn on the green led    
   } else {
     lcd.print("T");
     lcd.print(prog);
     lcd.print("     ");
-    digitalWrite(RedLedPin,LOW);//turn on the red led
-    digitalWrite(GreenLedPin,HIGH);//turn off the green led    
+    digitalWrite(OrangeLedPin,HIGH);//turn on the orange led
+    digitalWrite(GreenLedPin,LOW);//turn off the green led    
   }
 }
 
