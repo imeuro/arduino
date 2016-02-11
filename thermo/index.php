@@ -20,13 +20,12 @@
   <body>
   <?php
   $serialPort = "/dev/ttyACM0";
-  $fp = fopen($serialPort, "rb") or die("Sorry, unable to communicate Mode via serial port");
-  $strTemp = fread($fp);
-  fclose($fp);
-
-  //$strTemp= file_get_contents("./data/curTemp"); 
+  $strTemp;
+  if ($handle = fopen($serialPort, "rb"))	 {
+    $strTemp = fread($handle, 8);		// we get 8 bytes from our device
+    fclose($handle);
+  }
   $strMode= file_get_contents("./data/curMode");
-  //$strTemp = round($strTemp, 1);
   ?>
   <header class="text-center clearfix">
    <h1><span class="glyphicon glyphicon-home" aria-hidden="true"></span>&nbsp;&nbsp;Gestione Thermo</h1>
