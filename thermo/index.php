@@ -18,39 +18,20 @@
     <![endif]-->
   </head>
   <body>
-
+  <?php
+  $strTemp= file_get_contents("./data/curTemp"); 
+  $strMode= file_get_contents("./data/curMode");
+  $strTemp = round($strTemp, 1);
+  ?>
   <header class="text-center clearfix">
    <h1><span class="glyphicon glyphicon-home" aria-hidden="true"></span>&nbsp;&nbsp;Gestione Thermo</h1>
   </header>
   <div class="container page-content">
 
-    <?php
-    error_reporting(E_ALL);
-    ini_set("display_errors", 1);
-    define("PORT","COM4");
-    
-    include "data/php_serial.class.php";
-    $serial = new phpSerial;
-    $serial->deviceSet(PORT);
-    $serial->confBaudRate(9600);
-    $serial->confParity("none");
-    $serial->confCharacterLength(8);
-    $serial->confStopBits(1);
-    $serial->confFlowControl("none");
-    $serial->deviceOpen();
-
-    $serial->sendMessage("s"); 
-    $read = $serial->readPort();
-    print 'qqqq'.$read;
-    $serial->deviceClose();
-
-    $strMode= file_get_contents("./data/curMode");
-    ?>
-    
     <div class="col-xs-12 col-sm-6 col-md-4 col-md-push-2 text-center margin-bottom">
       <div class=" well well-lg">
          Current Temp.<br />
-         <strong class="very-strong"><?php echo $read; ?>°C</strong>
+         <strong class="very-strong"><?php echo $strTemp; ?>°C</strong>
        </div>
     </div>
     <div class="col-xs-12 col-sm-6 col-md-4 col-md-push-2 text-center margin-bottom">
