@@ -17,8 +17,8 @@ void setup(void) {
   tft.setRotation(3);
   tft.fillScreen(BLACK);
 
-  mainUI(9); // at startup goes in AUTO prog
-
+  mainUI(9);        // at startup goes in AUTO prog
+  heat_Program(9);  // at startup goes in AUTO prog
 }
 
 void loop(void) {
@@ -33,9 +33,15 @@ void loop(void) {
   pinMode(YP, OUTPUT);
   //pinMode(YM, OUTPUT);
 
-  if (timeElapsed > interval) { 
-    PrintTemp();      
-    timeElapsed = 0;              // reset the counter to 0 so the counting starts over...
+  if (timeElapsed > interval) {
+    // update temp, signal, clock and program
+    PrintTemp();
+    PrintSignal();
+    //PrintTime();
+    checkProgram(prog,tempC);
+    Serial.println(prog);
+    Serial.println(tempC);  
+    timeElapsed = 0;      // reset the counter to 0 so the counting starts over...
   }
 
   if (p.z > MINPRESSURE && p.z < MAXPRESSURE) {
@@ -62,6 +68,7 @@ void loop(void) {
         tft.setTextColor(BLACK);  tft.setTextSize(2);
         tft.print("AUTO");
         mainUI(9);
+        heat_Program(9);
       }
       else if (p.y < 80) { //OFF
         resetModeButtons(0);
@@ -70,6 +77,7 @@ void loop(void) {
         tft.setTextColor(BLACK);  tft.setTextSize(2);
         tft.print("OFF");
         mainUI(0);
+        heat_Program(0);
       }      
     }
     else if (MANmenuOpen == 1) {
@@ -78,14 +86,17 @@ void loop(void) {
         if (p.y > 160) { // T3
           resetModeButtons(3);
           mainUI(3);
+          heat_Program(3);
         }
         else if (p.y >= 80 && p.y <= 160) { // T2
           resetModeButtons(2);
           mainUI(2);
+          heat_Program(2);
         }
       else if (p.y < 80) { // T1
           resetModeButtons(1);
           mainUI(1);
+          heat_Program(1);
         }
       }
     }

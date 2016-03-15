@@ -65,3 +65,5 @@ int(MANmenuOpen);
 
 elapsedMillis timeElapsed;
 unsigned int interval = 60000; // milliseconds
+
+float tempC;
