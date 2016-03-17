@@ -1,3 +1,9 @@
+//////////////////////////////////////
+// Project Components setup:
+//////////////////////////////////////
+
+// Pixnor UNO R3 2.8'' TFT
+// ===================================
 #define USE_ADAFRUIT_SHIELD_PINOUT
 
 #if defined(__SAM3X8E__)
@@ -38,10 +44,6 @@ TouchScreen ts = TouchScreen(XP, YP, XM, YM, 300);
 #define LCD_RD A0 //A0 // LCD Read goes to Analog 0
 #define LCD_RESET A4 //reset // Can alternately just connect to Arduino's reset pin
 
-#define analogPin  A5 //the thermistor attach to
-#define beta 4090 //the beta of the thermistor
-
-
 // Assign human-readable names to some common 16-bit color values:
 #define	BLACK   0x0000
 #define	RED     0xF800
@@ -55,15 +57,36 @@ TouchScreen ts = TouchScreen(XP, YP, XM, YM, 300);
 
 Adafruit_TFTLCD tft(LCD_CS, LCD_CD, LCD_WR, LCD_RD, LCD_RESET);
 
+// cheap Temp sensor
+// ===================================
+#define analogPin  A5 //the thermistor attach to
+#define beta 4090 //the beta of the thermistor
+
+
+// Arduino GSM Shield
+// ===================================
+
+
+// Clock w/ battery
+// ===================================
+
+// Relay (2) breakout board
+// ===================================
+
+
+//////////////////////////////////////
+// MY VARS
+//////////////////////////////////////
+
 // 1 = MAN/T1
 // 2 = MAN/T2
 // 3 = MAN/T3
 // 9 = AUTO
 // 0 = OFF
-int(prog);
-int(MANmenuOpen);
+int currentprog = 9;
+int MANmenuOpen ;
 
 elapsedMillis timeElapsed;
-unsigned int interval = 60000; // milliseconds
+unsigned int interval = 5000; // milliseconds
 
 float tempC;
