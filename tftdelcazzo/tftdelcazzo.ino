@@ -2,7 +2,7 @@
 #include <Adafruit_GFX.h>         // Core graphics library
 #include <Adafruit_TFTLCD.h>      // Hardware-specific library
 #include <TouchScreen.h>          // Standard touchscreen library
-#include <GSM.h>                  // Basic GSM functions
+//#include <GSM.h>                  // Basic GSM functions
 
 #include "vars_tftdelcazzo.h"     // Vars and defines
 #include "Fn_tftdelcazzo.h"       // Functions
