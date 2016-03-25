@@ -8,14 +8,12 @@
 // ===========================================
 float GetTemp() {
   //read thermistor value
-  long a = analogRead(analogPin);
-  //the calculating formula of temperature
-  float tempC = beta /(log((1025.0 * 10 / a - 10) / 10) + beta / 298.0) - 273.0;
+  float tempC = RTC.temperature() / 4.;
   //tempC = tempC -2; // calibration :)
   return tempC;
 }
 void PrintTemp() {
-	float measuredTemp = GetTemp();
+  float measuredTemp = GetTemp();
   tft.setCursor(10, 65); 
   tft.setTextColor(WHITE);  tft.setTextSize(3);
   tft.println("Temp:");
@@ -29,15 +27,35 @@ void PrintTemp() {
 
 // giorno e ora
 // ===========================================
-long GetTime() {
-	long currenttime;
-	// ...
+String printDigits(int digits)
+{
+    String gigi;
+    String addendum;
+    if(digits < 10) {
+      addendum = "0";
+    }
+    gigi = addendum+digits;
+    return gigi;
+}
+String GetTime() {
+	String currenttime;
+        String sepa = "/";
+        int curweekday = weekday();
+	int curday = day();
+	int curmonth = month();
+	int curyear = year();
+	int curhour = hour();
+	int curminute = minute();
+        currenttime = printDigits(curday)+sepa+printDigits(curmonth)+sepa+curyear+" - "+printDigits(hour())+":"+printDigits(minute());
+        //currenttime = curweekday+" "+printDigits(curday)+sepa+printDigits(curmonth)+sepa+curyear+" - "+printDigits(hour())+":"+printDigits(minute());
 	return currenttime;
 }
+
 void PrintTime() {
   tft.setCursor(200, 13);
   tft.setTextColor(WHITE);  tft.setTextSize(1);
-  tft.println("Sun Mar 6 - 20.45"); // currenttime
+  //tft.println("Sun Mar 6 - 20.45"); // currenttime
+  tft.println(GetTime());
   tft.drawFastHLine(0, 30, tft.width(), WHITE);
 }
 

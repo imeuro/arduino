@@ -48,6 +48,7 @@ void setup()
   {
     if(gsmAccess.begin(PINNUMBER)==GSM_READY)
       notConnected = false;
+      //Serial.print(scannerNetworks.getSignalStrength());
     else
     {
       Serial.println("Not connected");

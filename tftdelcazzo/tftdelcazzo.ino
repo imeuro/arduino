@@ -2,7 +2,12 @@
 #include <Adafruit_GFX.h>         // Core graphics library
 #include <Adafruit_TFTLCD.h>      // Hardware-specific library
 #include <TouchScreen.h>          // Standard touchscreen library
+
 //#include <GSM.h>                  // Basic GSM functions
+// ora e temp
+#include <DS3232RTC.h>    //http://github.com/JChristensen/DS3232RTC
+#include <Time.h>         //http://www.arduino.cc/playground/Code/Time  
+#include <Wire.h>         //http://arduino.cc/en/Reference/Wire (included with Arduino IDE)
 
 #include "vars_tftdelcazzo.h"     // Vars and defines
 #include "Fn_tftdelcazzo.h"       // Functions
@@ -10,8 +15,8 @@
 void setup(void) {
 
   Serial.begin(9600);
-  //Serial.println(F("TFT LCD test"));
-  //Serial.print("TFT size is "); Serial.print(tft.width()); Serial.print("x"); Serial.println(tft.height());
+  
+  setSyncProvider(RTC.get);   // time/temp from RTC
 
   tft.reset();
   tft.begin(0x9341);//this is important!!!

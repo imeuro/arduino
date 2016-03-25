@@ -35,7 +35,7 @@ https://github.com/BlueVia/Official-Arduino
 #include <HardwareSerial.h>
 #include <Arduino.h>
 
-#define __RESETPIN__ 7
+#define __RESETPIN__ 11 //7
 #define __TOUTLOCALCOMS__ 500
 #define __TOUTSHUTDOWN__ 5000
 #define __TOUTMODEMCONFIGURATION__ 5000//equivalent to 30000 because of time in interrupt routine.
