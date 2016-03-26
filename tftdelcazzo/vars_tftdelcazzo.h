@@ -40,7 +40,7 @@ TouchScreen ts = TouchScreen(XP, YP, XM, YM, 300);
 // double up the pins with the touch screen (see the TFT paint example).
 #define LCD_CS A3 //A3 // Chip Select goes to Analog 3
 #define LCD_CD A2 //A2 // Command/Data goes to Analog 2
-#define LCD_WR 10 //10 //A1 // LCD Write goes to Analog 1
+#define LCD_WR A1 //A1 // LCD Write goes to Analog 1
 #define LCD_RD A0 //A0 // LCD Read goes to Analog 0
 #define LCD_RESET A4 //reset // Can alternately just connect to Arduino's reset pin
 
@@ -57,18 +57,17 @@ TouchScreen ts = TouchScreen(XP, YP, XM, YM, 300);
 
 Adafruit_TFTLCD tft(LCD_CS, LCD_CD, LCD_WR, LCD_RD, LCD_RESET);
 
-// cheap Temp sensor
-// ===================================
-#define analogPin  A5 //the thermistor attach to
-#define beta 4090 //the beta of the thermistor
-
 
 // Arduino GSM Shield
 // ===================================
+SerialGSM cell(12,11);
 
-
-// Clock w/ battery
+// Clock w/ battery + Temp sensor
 // ===================================
+DS3231 Clock;
+bool Century=false;
+bool h12;
+bool PM;
 
 // Relay (2) breakout board
 // ===================================
@@ -84,9 +83,19 @@ Adafruit_TFTLCD tft(LCD_CS, LCD_CD, LCD_WR, LCD_RD, LCD_RESET);
 // 9 = AUTO
 // 0 = OFF
 int currentprog = 9;
+String humanread_prog;
+
 int MANmenuOpen ;
+
+String giorno;
+String mese;
+byte ora;
 
 elapsedMillis timeElapsed;
 unsigned int interval = 5000; // milliseconds
 
 float tempC;
+String prefix = "Mergozzo";
+String smscontent;
+char* SMSreplytxt;
+char* SMSreplynum;

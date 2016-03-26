@@ -1,30 +1,38 @@
-#include <elapsedMillis.h>        // Timer library
-#include <Adafruit_GFX.h>         // Core graphics library
-#include <Adafruit_TFTLCD.h>      // Hardware-specific library
-#include <TouchScreen.h>          // Standard touchscreen library
-
-//#include <GSM.h>                  // Basic GSM functions
+#include <elapsedMillis.h>          // Timer library
+#include <Adafruit_GFX.h>           // Core graphics library
+#include <Adafruit_TFTLCD.h>        // Hardware-specific library
+#include <TouchScreen.h>            // Standard touchscreen library
+// gsm shield
+#include <SerialGSM.h>              // light library: just sms, calls and signal
+#include <SoftwareSerial.h>
 // ora e temp
-#include <DS3232RTC.h>    //http://github.com/JChristensen/DS3232RTC
-#include <Time.h>         //http://www.arduino.cc/playground/Code/Time  
-#include <Wire.h>         //http://arduino.cc/en/Reference/Wire (included with Arduino IDE)
+#include <DS3231.h>                 //https://github.com/YoungxHelsinki/DS3231_weekday_accessible
+#include <Wire.h>                   //http://arduino.cc/en/Reference/Wire (included with Arduino IDE)
 
-#include "vars_tftdelcazzo.h"     // Vars and defines
-#include "Fn_tftdelcazzo.h"       // Functions
+#include "vars_tftdelcazzo.h"       // Vars and defines
+#include "Fn_tftdelcazzo.h"         // Functions
+#include "smshandler.h"             // receive and send sms
+
 
 void setup(void) {
 
   Serial.begin(9600);
   
-  setSyncProvider(RTC.get);   // time/temp from RTC
+  Wire.begin();
 
   tft.reset();
   tft.begin(0x9341);//this is important!!!
   tft.setRotation(3);
   tft.fillScreen(BLACK);
 
-  mainUI(9);        // at startup goes in AUTO prog
-  set_heat_prog(9);  // at startup goes in AUTO prog
+  mainUI(9);              // at startup goes in AUTO prog
+  set_heat_prog(9);       // at startup goes in AUTO prog
+  
+  cell.begin(9600);
+  cell.Verbose(true);
+  cell.Boot(); 
+  cell.FwdSMS2Serial();
+
 }
 
 void loop(void) {
@@ -47,7 +55,11 @@ void loop(void) {
     PrintHeatStatus();
     timeElapsed = 0;      // reset the counter to 0 so the counting starts over...
   }
-
+  
+  if (cell.ReceiveSMS()){
+    ProcessMsg();
+  }
+  
   if (p.z > MINPRESSURE && p.z < MAXPRESSURE) {
     
     p.x = tft.width()-(map(p.x, TS_MINX, TS_MAXX, tft.width(), 0)); // da 70 a 300
