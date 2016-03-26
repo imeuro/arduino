@@ -85,7 +85,7 @@ bool PM;
 int currentprog = 9;
 String humanread_prog;
 
-int MANmenuOpen ;
+byte MANmenuOpen = 0;
 
 String giorno;
 String mese;

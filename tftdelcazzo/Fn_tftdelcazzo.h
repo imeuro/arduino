@@ -216,7 +216,8 @@ void PrintHeatStatus() {
 // DRAW THE UI
 //////////////////////////////////////////////
 
-void resetModeButtons(unsigned char prog) { // initial button state
+void resetModeButtons(unsigned char prog) { // resets button state after prog is set
+  MANmenuOpen = 0; // MANmenu is closed
   delay(200);
   tft.fillRect(10, 95, 300, 70, BLACK);
   tft.setCursor(10, 115); 
@@ -224,6 +225,53 @@ void resetModeButtons(unsigned char prog) { // initial button state
   tft.setTextSize(3);
   tft.println("Prog:");
   tft.setTextSize(2);
+
+  //reset all buttons:
+  //OFF
+  tft.fillRect(10, 170, 90, 50, BLACK);
+  tft.drawRect(10, 170, 90, 50, WHITE);
+  tft.setTextColor(WHITE);
+  tft.setCursor(38, 188);
+  tft.print("OFF");
+
+  // AUTO
+  tft.fillRect(110, 170, 100, 50, BLACK);
+  tft.drawRect(110, 170, 100, 50, GREEN);
+  tft.setTextColor(GREEN);
+  tft.setCursor(138, 188);
+  tft.print("AUTO");
+
+  // T1,T2,T3
+  tft.fillRect(220, 170, 90, 50, BLACK);
+  tft.drawRect(220, 170, 90, 50, YELLOW);
+  tft.setTextColor(YELLOW);
+  tft.setCursor(248, 188);
+  tft.print("MAN");
+
+  // swich on the correct one
+  switch (prog) {
+  case 0:   // OFF
+    tft.fillRect(10, 170, 90, 50, WHITE);
+    tft.setTextColor(BLACK);
+    tft.setCursor(38, 188);
+    tft.print("OFF");
+    break;
+  case 9:   // AUTO
+    tft.fillRect(110, 170, 100, 50, GREEN);
+    tft.setTextColor(BLACK);
+    tft.setCursor(138, 188);
+    tft.print("AUTO");
+    break;
+  default: // T1,T2,T3
+    tft.fillRect(220, 170, 90, 50, YELLOW);
+    tft.setTextColor(BLACK);
+    tft.setCursor(248, 188);
+    tft.print("MAN");
+    break;
+  }
+
+
+/*
   if ( prog == 0 ) { // OFF
     tft.fillRect(10, 170, 90, 50, WHITE);
     tft.setTextColor(BLACK);
@@ -233,8 +281,6 @@ void resetModeButtons(unsigned char prog) { // initial button state
     tft.drawRect(10, 170, 90, 50, WHITE);
     tft.setTextColor(WHITE);
   }
-  tft.setCursor(38, 188);
-  tft.print("OFF");
 
   if ( prog == 9 ) { // AUTO
     tft.fillRect(110, 170, 100, 50, GREEN);
@@ -259,13 +305,15 @@ void resetModeButtons(unsigned char prog) { // initial button state
   }
   tft.setCursor(248, 188);
   tft.print("MAN");
+*/
 }
+
 void mainUI(unsigned char prog) { // initial UI state
   MANmenuOpen = 0; // MANmenu is closed
   unsigned long start = micros();
-  PrintSignal();
-  PrintHeatStatus();
-  PrintTime();
+  //PrintSignal();
+  //PrintHeatStatus();
+  //PrintTime();
 
   // ln 1: temp
   PrintTemp();
@@ -300,10 +348,10 @@ void mainUI(unsigned char prog) { // initial UI state
   }
   Serial.print("new prog: "); 
   Serial.print(prog); 
-  Serial.println(); // prog  
+  Serial.println(MANmenuOpen); // prog  
 }
 
-void MANmenu() {
+void open_MANmenu() {
   MANmenuOpen = 1; // MANmenu is open
   tft.fillRect(10, 95, 300, 70, YELLOW);
   tft.setTextColor(BLACK);
@@ -327,6 +375,10 @@ void MANmenu() {
   tft.setCursor(245, 140);
   tft.setTextSize(1); 
   tft.println("20.5 C");
+}
+void close_MANmenu() {
+  MANmenuOpen = 0; // MANmenu is closed
+  mainUI(currentprog);
 }
 // END DRAW THE UI
 //////////////////////////////////////////////

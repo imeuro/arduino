@@ -22,7 +22,7 @@ void setup(void) {
 
   tft.reset();
   tft.begin(0x9341);//this is important!!!
-  tft.setRotation(3);
+  tft.setRotation(1);
   tft.fillScreen(BLACK);
 
   mainUI(9);              // at startup goes in AUTO prog
@@ -68,17 +68,24 @@ void loop(void) {
     //Serial.print("\tY = "); Serial.println(p.y);
     
     // OFF,AUTO o MAN
-    if (p.x > 240) { // fascia bassa
-      if (p.y > 160 && MANmenuOpen == 0) { // MAN
-        resetModeButtons(1);
+    if (p.x < 130) { // fascia bassa
+      if (p.y < 80 && MANmenuOpen == 0) { // MAN
+        //resetModeButtons(1);
         tft.fillRect(220, 170, 90, 50, YELLOW);
         tft.setCursor(248, 188);
         tft.setTextColor(BLACK);  tft.setTextSize(2);
         tft.print("MAN");
-        MANmenu();
+        open_MANmenu();
+      } 
+      else if (p.y < 80 && MANmenuOpen == 1) { // MAN
+        //resetModeButtons(currentprog);
+        //tft.fillRect(220, 170, 90, 50, YELLOW);
+        //tft.setCursor(248, 188);
+        //tft.setTextColor(BLACK);  tft.setTextSize(2);
+        close_MANmenu();
       } 
       else if (p.y >= 80 && p.y <= 160) { // AUTO
-        resetModeButtons(9);
+        //resetModeButtons(9);
         tft.fillRect(110, 170, 100, 50, GREEN);
         tft.setCursor(138, 188);
         tft.setTextColor(BLACK);  tft.setTextSize(2);
@@ -86,8 +93,8 @@ void loop(void) {
         mainUI(9);
         set_heat_prog(9);
       }
-      else if (p.y < 80) { //OFF
-        resetModeButtons(0);
+      else if (p.y > 160) { //OFF
+        //resetModeButtons(0);
         tft.fillRect(10, 170, 90, 50, WHITE);
         tft.setCursor(38, 188);
         tft.setTextColor(BLACK);  tft.setTextSize(2);
@@ -99,20 +106,17 @@ void loop(void) {
     else if (MANmenuOpen == 1) {
       if (p.x > 110 && p.x < 240) {
         tft.setTextColor(BLACK);  tft.setTextSize(2);
-        if (p.y > 160) { // T3
-          resetModeButtons(3);
-          mainUI(3);
-          set_heat_prog(3);
+        if (p.y > 160) { // T1
+          mainUI(1);
+          set_heat_prog(1);
         }
         else if (p.y >= 80 && p.y <= 160) { // T2
-          resetModeButtons(2);
           mainUI(2);
           set_heat_prog(2);
         }
-      else if (p.y < 80) { // T1
-          resetModeButtons(1);
-          mainUI(1);
-          set_heat_prog(1);
+      else if (p.y < 80) { // T3
+          mainUI(3);
+          set_heat_prog(3);
         }
       }
     }
