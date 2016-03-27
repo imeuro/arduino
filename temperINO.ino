@@ -9,8 +9,8 @@
 #include <DS3231.h>                 //https://github.com/YoungxHelsinki/DS3231_weekday_accessible
 #include <Wire.h>                   //http://arduino.cc/en/Reference/Wire (included with Arduino IDE)
 
-#include "vars_tftdelcazzo.h"       // Vars and defines
-#include "Fn_tftdelcazzo.h"         // Functions
+#include "vars_temperINO.h"       // Vars and defines
+#include "Fn_temperINO.h"         // Functions
 #include "smshandler.h"             // receive and send sms
 
 
