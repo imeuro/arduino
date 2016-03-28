@@ -1,6 +1,6 @@
-# Arduino Projects
+##### Arduino Projects
 
-###temperINO
+#temperINO
 TemperINO is my first attempt to build an Arduino powered GSM Thermostat
 it's actually a work in progress and involves:
 
@@ -12,7 +12,7 @@ it's actually a work in progress and involves:
 - DHT11 temperature and humodity sensor (optional)
 - module w/ 2x relay switches
 
-#software
+##software
 libraries:
 - Adafruit_GFX
 - Adafruit_TFTLCD
