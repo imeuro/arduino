@@ -35,7 +35,6 @@ char* SMSreplynum;
     }
     else {
       SMSreplytxt = "Comando non riconosciuto (es. \"Mergozzo T2\" per impostare a T2 il termostato).";
-      SMSreplytxt += Clock.getTemperature();
     }
     //SMSreplytxt+= "\nTempertaura attuale: ";
     

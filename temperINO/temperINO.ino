@@ -55,7 +55,8 @@ void loop(void) {
     PrintHeatStatus();
     timeElapsed = 0;      // reset the counter to 0 so the counting starts over...
   }
- 
+
+
   if (cell.ReceiveSMS()){
     ProcessMsg();
   }
@@ -66,7 +67,6 @@ void loop(void) {
     p.y = tft.height()-(map(p.y, TS_MINY, TS_MAXY, tft.height(), 0)); // da 20 a 230
     //Serial.print("X = "); Serial.print(p.x);
     //Serial.print("\tY = "); Serial.println(p.y);
-    
     
     // OFF,AUTO o MAN
     if (p.x < 130) { // fascia bassa
