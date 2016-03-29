@@ -12,7 +12,7 @@ class SerialGSM : public SoftwareSerial {
 public:
   SerialGSM(int rxpin,int txpin);
   void FwdSMS2Serial();
-  char * checkSignal();
+  int checkSignal();
   void SendSMS();
   void SendSMS(char * cellnumber,char * outmsg);
   void DeleteAllSMS();
