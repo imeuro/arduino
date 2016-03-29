@@ -27,7 +27,7 @@ void SerialGSM::FwdSMS2Serial(){
   this->ReadLine();
 }
 
-int SerialGSM::checkSignal(){
+char *  SerialGSM::checkSignal(){
   this->println("AT+CSQ");
   this->ReadLine();
 }
