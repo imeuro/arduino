@@ -65,15 +65,13 @@ SerialGSM cell(12,11);
 // Clock w/ battery + Temp sensor
 // ===================================
 DS3231 Clock;
-bool Century=false;
-bool h12;
-bool PM;
+
 
 // Relay (2) breakout board
 // ===================================
 
 //////////////////////////////////////
-// MY VARS
+// MY GLOBAL VARS
 //////////////////////////////////////
 
 // 1 = MAN/T1
@@ -82,14 +80,10 @@ bool PM;
 // 9 = AUTO
 // 0 = OFF
 int currentprog = 9;
-String humanread_prog;
-
 byte MANmenuOpen = 0;
-
-String giorno;
-byte ora;
 
 elapsedMillis timeElapsed;
 unsigned int interval = 10000; // milliseconds
 
+byte ora;
 float tempC;
