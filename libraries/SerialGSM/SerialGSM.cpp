@@ -142,7 +142,7 @@ char SerialGSM::ReadSignal(){
   char response;
   char nc;
   while (this->available()){
-    nc=this->read();
+    nc=this->ReadLine();
     response += nc;
   }
   return response;

@@ -8,8 +8,8 @@
 // ===========================================
 float GetTemp() {
   //read thermistor value
-  float tempC = Clock.getTemperature();
-  //tempC = tempC -2; // calibration :)
+  tempC = Clock.getTemperature();
+  tempC = tempC -4; // calibration :)
   return tempC;
 }
 void PrintTemp() {
@@ -125,11 +125,6 @@ void PrintTime() {
 
 // segnale rete GSM
 // ===========================================
-int GetSignal() {
-  float cellsignal;
-  // ...
-  return cellsignal;
-}
 void PrintSignal() {
   String rawsignal = cell.checkSignal();
   int start = rawsignal.indexOf('+CSQ:');
@@ -149,10 +144,10 @@ void PrintSignal() {
   Serial.println("rawsignal:");
   Serial.print(rawsignal);
   Serial.println();
-  Serial.println();
   Serial.println("start:");
   Serial.print(start);
-}
+  Serial.println("-----");
+  }
 
 // stato caldaia
 // ===========================================

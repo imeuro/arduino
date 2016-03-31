@@ -3,6 +3,7 @@ String smscontent;
 String prefix = "Mergozzo";
 char* SMSreplytxt;
 char* SMSreplynum;
+String fullSMS;
 
     smscontent = cell.Message();
     SMSreplynum = cell.Sender();
@@ -36,15 +37,20 @@ char* SMSreplynum;
     else {
       SMSreplytxt = "Comando non riconosciuto (es. \"Mergozzo T2\" per impostare a T2 il termostato).";
     }
-    //SMSreplytxt+= "\nTempertaura attuale: ";
-    
-    delay(2000);
 
-    cell.DeleteAllSMS();
+    //sprintf(fullSMS,"%s \nTempertaura attuale:  %f",SMSreplytxt,tempC);
+    fullSMS = String(SMSreplytxt)+String("\nTempertaura attuale: ")+String(tempC);
+    char charSMS[161];
+    fullSMS.toCharArray(charSMS,161);
+    
+    Serial.println(tempC);
+    delay(2000);
 
     //send sms confirmation to sender number
     cell.Rcpt(SMSreplynum);
-    cell.Message(SMSreplytxt);
+    cell.Message(charSMS);
     cell.SendSMS();
-
+    
+    delay(2000);
+     cell.DeleteAllSMS();
 }
