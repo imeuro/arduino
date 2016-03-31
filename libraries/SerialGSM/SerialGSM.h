@@ -23,7 +23,7 @@ public:
   void EndSMS();
   void StartSMS();
   int ReadLine();
-  int ReadSignal();
+  char ReadSignal();
   int ReceiveSMS();
   void Verbose(boolean var1);
   boolean Verbose();

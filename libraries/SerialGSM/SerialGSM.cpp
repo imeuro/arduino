@@ -138,14 +138,14 @@ int SerialGSM::ReadLine(){
   return 0;
 }
 
-int SerialGSM::ReadSignal(){
-  String response = "";
-  String nc;
+char SerialGSM::ReadSignal(){
+  char response;
+  char nc;
   while (this->available()){
     nc=this->read();
-    response = response.concat(nc);
+    response += nc;
   }
-  return 0;
+  return response;
 }
 
 
