@@ -12,7 +12,7 @@ class SerialGSM : public SoftwareSerial {
 public:
   SerialGSM(int rxpin,int txpin);
   void FwdSMS2Serial();
-  char * checkSignal();
+  String checkSignal();
   void SendSMS();
   void SendSMS(char * cellnumber,char * outmsg);
   void DeleteAllSMS();
@@ -23,6 +23,7 @@ public:
   void EndSMS();
   void StartSMS();
   int ReadLine();
+  int ReadSignal();
   int ReceiveSMS();
   void Verbose(boolean var1);
   boolean Verbose();
@@ -36,6 +37,7 @@ public:
 
   boolean verbose;
   char sendernumber[PHONESIZE + 1];
+  char signalstrength[21];
   char rcpt[PHONESIZE + 1];
   char outmessage[160];
   char inmessage[160];
@@ -46,4 +48,3 @@ protected:
 };
 
 #endif /* not defined _SerialGSM_H */
-

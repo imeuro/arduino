@@ -61,6 +61,7 @@ void loop(void) {
     ProcessMsg();
   }
   
+
   if (p.z > MINPRESSURE && p.z < MAXPRESSURE) {
     
     p.x = tft.width()-(map(p.x, TS_MINX, TS_MAXX, tft.width(), 0)); // da 70 a 300
@@ -71,7 +72,6 @@ void loop(void) {
     // OFF,AUTO o MAN
     if (p.x < 130) { // fascia bassa
       if (p.y < 80 && MANmenuOpen == 0) { // MAN
-        //resetModeButtons(1);
         tft.fillRect(220, 170, 90, 50, YELLOW);
         tft.setCursor(248, 188);
         tft.setTextColor(BLACK);  tft.setTextSize(2);
@@ -79,14 +79,9 @@ void loop(void) {
         open_MANmenu();
       } 
       else if (p.y < 80 && MANmenuOpen == 1) { // MAN
-        //resetModeButtons(currentprog);
-        //tft.fillRect(220, 170, 90, 50, YELLOW);
-        //tft.setCursor(248, 188);
-        //tft.setTextColor(BLACK);  tft.setTextSize(2);
         close_MANmenu();
       } 
       else if (p.y >= 80 && p.y <= 160) { // AUTO
-        //resetModeButtons(9);
         tft.fillRect(110, 170, 100, 50, GREEN);
         tft.setCursor(138, 188);
         tft.setTextColor(BLACK);  tft.setTextSize(2);
@@ -95,7 +90,6 @@ void loop(void) {
         set_heat_prog(9);
       }
       else if (p.y > 160) { //OFF
-        //resetModeButtons(0);
         tft.fillRect(10, 170, 90, 50, WHITE);
         tft.setCursor(38, 188);
         tft.setTextColor(BLACK);  tft.setTextSize(2);

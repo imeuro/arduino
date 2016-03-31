@@ -27,9 +27,10 @@ void SerialGSM::FwdSMS2Serial(){
   this->ReadLine();
 }
 
-char *  SerialGSM::checkSignal(){
+String SerialGSM::checkSignal(){
   this->println("AT+CSQ");
-  this->ReadLine();
+  this->ReadSignal();
+  return inmessage;
 }
 
 void SerialGSM::answer(){
@@ -137,26 +138,36 @@ int SerialGSM::ReadLine(){
   return 0;
 }
 
+int SerialGSM::ReadSignal(){
+  String response = "";
+  String nc;
+  while (this->available()){
+    nc=this->read();
+    response = response.concat(nc);
+  }
+  return 0;
+}
+
 
 int SerialGSM::ReceiveSMS(){
   static boolean insms=0;
   if (this->ReadLine()){
   // Get the number of the sms sender in order to be able to reply
-	if ( strstr(inmessage, "CMT: ") != NULL ){
-	    insms=1;
-	    int sf=6;
-	    if(strstr(inmessage, "+CMT:")) sf++; 
-		    for (int i=0;i < PHONESIZE;i++){
-		      sendernumber[i]=inmessage[sf+i];
-		    }
-		sendernumber[PHONESIZE]='\0';
-		return 0;
-	 }else{ 
-		if(insms) {
-			insms=0;
-			return 1;
-		}
-	}
+  if ( strstr(inmessage, "CMT: ") != NULL ){
+      insms=1;
+      int sf=6;
+      if(strstr(inmessage, "+CMT:")) sf++; 
+        for (int i=0;i < PHONESIZE;i++){
+          sendernumber[i]=inmessage[sf+i];
+        }
+    sendernumber[PHONESIZE]='\0';
+    return 0;
+   }else{ 
+    if(insms) {
+      insms=0;
+      return 1;
+    }
+  }
   }
   return 0;
 }
@@ -171,7 +182,7 @@ void SerialGSM::Verbose(boolean var1){
 }
 
 char * SerialGSM::Sender(){
-	return sendernumber;
+  return sendernumber;
 }
 
 
@@ -185,7 +196,7 @@ char * SerialGSM::Message(){
 
 
 void SerialGSM::Sender(char * var1){
-	sprintf(sendernumber,"%s",var1);
+  sprintf(sendernumber,"%s",var1);
 }
 
 

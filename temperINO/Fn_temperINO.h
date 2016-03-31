@@ -41,7 +41,7 @@ String printDigits(int digits)
 }
 String GetTime() {
   String currenttime;
-  String mese;
+  char* mese;
   byte curweekday = Clock.getDoW();
   switch (curweekday) {
   case 1: 
@@ -125,12 +125,15 @@ void PrintTime() {
 
 // segnale rete GSM
 // ===========================================
+int GetSignal() {
+  float cellsignal;
+  // ...
+  return cellsignal;
+}
 void PrintSignal() {
-int ricezione;
-  ricezione=cell.checkSignal();
-  Serial.println("===========");
-  Serial.println(ricezione);
-  Serial.println("/===========");
+  String rawsignal = cell.checkSignal();
+  int start = rawsignal.indexOf('+CSQ:');
+  //rawsignal=rawsignal.substring(start, 20);
   tft.fillRect(15,8,45,15,BLACK);
   tft.fillRect(15,19,3,3,WHITE);
   tft.fillRect(20,16,3,6,WHITE);
@@ -140,8 +143,15 @@ int ricezione;
   tft.setCursor(40, 13);
   tft.setTextColor(WHITE);  
   tft.setTextSize(1);
-  tft.print("TIM - ");
-  tft.print(ricezione);
+  tft.println(rawsignal);
+  Serial.println();
+  Serial.println();
+  Serial.println("rawsignal:");
+  Serial.print(rawsignal);
+  Serial.println();
+  Serial.println();
+  Serial.println("start:");
+  Serial.print(start);
 }
 
 // stato caldaia
@@ -271,51 +281,11 @@ void resetModeButtons(unsigned char prog) { // resets button state after prog is
     tft.print("MAN");
     break;
   }
-
-
-/*
-  if ( prog == 0 ) { // OFF
-    tft.fillRect(10, 170, 90, 50, WHITE);
-    tft.setTextColor(BLACK);
-  } 
-  else {
-    tft.fillRect(10, 170, 90, 50, BLACK);
-    tft.drawRect(10, 170, 90, 50, WHITE);
-    tft.setTextColor(WHITE);
-  }
-
-  if ( prog == 9 ) { // AUTO
-    tft.fillRect(110, 170, 100, 50, GREEN);
-    tft.setTextColor(BLACK);
-  } 
-  else {
-    tft.fillRect(110, 170, 100, 50, BLACK);
-    tft.drawRect(110, 170, 100, 50, GREEN);
-    tft.setTextColor(GREEN);
-  }
-  tft.setCursor(138, 188);
-  tft.print("AUTO");
-
-  if ( prog >= 1 && prog <= 3 ) {
-    tft.fillRect(220, 170, 90, 50, YELLOW);
-    tft.setTextColor(BLACK);
-  } 
-  else {
-    tft.fillRect(220, 170, 90, 50, BLACK);
-    tft.drawRect(220, 170, 90, 50, YELLOW);
-    tft.setTextColor(YELLOW);
-  }
-  tft.setCursor(248, 188);
-  tft.print("MAN");
-*/
 }
 
 void mainUI(unsigned char prog) { // initial UI state
   MANmenuOpen = 0; // MANmenu is closed
   unsigned long start = micros();
-  //PrintSignal();
-  //PrintHeatStatus();
-  //PrintTime();
 
   // ln 1: temp
   PrintTemp();

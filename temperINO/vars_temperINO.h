@@ -72,10 +72,6 @@ bool PM;
 // Relay (2) breakout board
 // ===================================
 
-<<<<<<< HEAD
-=======
-
->>>>>>> 0d8d2b88ad6cd2ead4d0bb5ac4a3991edeb9ceec
 //////////////////////////////////////
 // MY VARS
 //////////////////////////////////////
@@ -91,24 +87,9 @@ String humanread_prog;
 byte MANmenuOpen = 0;
 
 String giorno;
-<<<<<<< HEAD
 byte ora;
 
 elapsedMillis timeElapsed;
-unsigned int interval = 30000; // milliseconds
+unsigned int interval = 10000; // milliseconds
 
 float tempC;
-char* cellsignal;
-=======
-String mese;
-byte ora;
-
-elapsedMillis timeElapsed;
-unsigned int interval = 5000; // milliseconds
-
-float tempC;
-String prefix = "Mergozzo";
-String smscontent;
-char* SMSreplytxt;
-char* SMSreplynum;
->>>>>>> 0d8d2b88ad6cd2ead4d0bb5ac4a3991edeb9ceec
