@@ -71,7 +71,7 @@ DS3231 Clock;
 // ===================================
 
 //////////////////////////////////////
-// MY GLOBAL VARS
+// MY VARS
 //////////////////////////////////////
 
 // 1 = MAN/T1
@@ -80,10 +80,14 @@ DS3231 Clock;
 // 9 = AUTO
 // 0 = OFF
 int currentprog = 9;
+String humanread_prog;
+
 byte MANmenuOpen = 0;
+
+String giorno;
+byte ora;
 
 elapsedMillis timeElapsed;
 unsigned int interval = 10000; // milliseconds
 
-byte ora;
 float tempC;

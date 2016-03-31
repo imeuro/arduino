@@ -41,7 +41,6 @@ String printDigits(int digits)
 }
 String GetTime() {
   String currenttime;
-  String giorno;
   char* mese;
   bool Century=false;
   byte curweekday = Clock.getDoW();
@@ -157,7 +156,6 @@ void PrintSignal() {
 // ===========================================
 void PrintHeatStatus() {
   float measuredTemp = GetTemp();
-  char humanread_prog;
   tft.setCursor(90, 13);
   tft.fillRect(115,13,75,15,BLACK);
   tft.setTextColor(SILVER);  
