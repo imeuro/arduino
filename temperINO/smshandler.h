@@ -3,7 +3,7 @@ String smscontent;
 String prefix = "Mergozzo";
 char* SMSreplytxt;
 char* SMSreplynum;
-String fullSMS;
+//String fullSMS;
 
     smscontent = cell.Message();
     SMSreplynum = cell.Sender();
@@ -39,16 +39,16 @@ String fullSMS;
     }
 
     //sprintf(fullSMS,"%s \nTempertaura attuale:  %f",SMSreplytxt,tempC);
-    fullSMS = String(SMSreplytxt)+String("\nTempertaura attuale: ")+String(tempC);
-    char charSMS[161];
-    fullSMS.toCharArray(charSMS,161);
+    //fullSMS = String(SMSreplytxt)+String("\nTempertaura attuale: ")+String(tempC);
+    //char charSMS[161];
+    //fullSMS.toCharArray(charSMS,161);
     
     Serial.println(tempC);
     delay(2000);
 
     //send sms confirmation to sender number
     cell.Rcpt(SMSreplynum);
-    cell.Message(charSMS);
+    cell.Message(SMSreplytxt);
     cell.SendSMS();
     
     delay(2000);

@@ -129,27 +129,34 @@ void PrintTime() {
 // segnale rete GSM
 // ===========================================
 void PrintSignal() {
-  String rawsignal = cell.checkSignal();
+  cell.checkSignal();
+  delay(200);
+  String rawsignal = String(cell.ReadSignal());
   int start = rawsignal.indexOf('+CSQ:');
-  //rawsignal=rawsignal.substring(start, 20);
+  rawsignal=rawsignal.substring(start+2,start+6);
+  int Signal = rawsignal.toInt();
+  //31:100=Signal:x
+  int barrette =( (Signal*100)/31 )/25;
   tft.fillRect(15,8,45,15,BLACK);
-  tft.fillRect(15,19,3,3,WHITE);
-  tft.fillRect(20,16,3,6,WHITE);
-  tft.fillRect(25,13,3,9,WHITE);
+  tft.fillRect(15,19,3,3,SILVER);
+  tft.fillRect(15,16,3,6,SILVER);
+  tft.fillRect(25,13,3,9,SILVER);
   tft.fillRect(30,10,3,12,SILVER);
+  if (barrette > 0 ) {  tft.fillRect(15,19,3,3,WHITE); }
+  if (barrette > 1 ) {  tft.fillRect(20,16,3,6,WHITE); }
+  if (barrette > 2 ) {  tft.fillRect(25,13,3,9,WHITE); }
+  if (barrette > 3 and barrette<=4 ) {  tft.fillRect(30,10,3,12,WHITE); }
   //tft.drawRect(39,8,5,16,WHITE);
   tft.setCursor(40, 13);
   tft.setTextColor(WHITE);  
   tft.setTextSize(1);
-  tft.println(rawsignal);
-  Serial.println();
-  Serial.println();
-  Serial.println("rawsignal:");
-  Serial.print(rawsignal);
-  Serial.println();
-  Serial.println("start:");
-  Serial.print(start);
-  Serial.println("-----");
+  if (barrette==0 or barrette>4) { tft.println("No signal"); }
+  else { tft.println("TIM"); }
+  //Serial.println();
+  //Serial.println();
+  //Serial.print("rawsignal:");
+  //Serial.print(barrette);
+  //Serial.println("-----");
   }
 
 // stato caldaia

@@ -29,10 +29,9 @@ void SerialGSM::FwdSMS2Serial(){
 
 String SerialGSM::checkSignal(){
   this->println("AT+CSQ");
-  this->ReadSignal();
   return inmessage;
 }
-
+/*
 void SerialGSM::answer(){
   this->println("ATA");
 }
@@ -47,7 +46,7 @@ void SerialGSM::dial(char * pnumber){
   this->println(pnumber);
   //this->println('\r');
 }
-
+*/
 void SerialGSM::SendSMS(char * cellnumber,char * outmsg){
   this->Rcpt(cellnumber);
   if (verbose) Serial.println(rcpt);
@@ -138,14 +137,25 @@ int SerialGSM::ReadLine(){
   return 0;
 }
 
-char SerialGSM::ReadSignal(){
-  char response;
+String SerialGSM::ReadSignal(){
+  static int pos=0;
   char nc;
   while (this->available()){
-    nc=this->ReadLine();
-    response += nc;
+    nc=this->read();
+    if ( (pos > MAXMSGLEN) or ((millis()> lastrec + SERIALTIMEOUT)and (pos > 0)) ){
+      nc='\0';
+      lastrec=millis();
+      inmessage[pos]=nc;
+     pos=0;
+     if (verbose) Serial.println(inmessage);
+      return inmessage;
+    }
+    else{
+      inmessage[pos++]=nc;
+      lastrec=millis();
+    }
   }
-  return response;
+  return inmessage;
 }
 
 

@@ -6,7 +6,7 @@
 #define SERIALTIMEOUT 2000
 #define PHONESIZE 13
 #define MAXMSGLEN 160
-#define BOOTTIME 25
+#define BOOTTIME 10
 
 class SerialGSM : public SoftwareSerial {
 public:
@@ -17,13 +17,13 @@ public:
   void SendSMS(char * cellnumber,char * outmsg);
   void DeleteAllSMS();
   void Reset();
-  void answer();
-  void hungup();
+  //void answer();
+  //void hungup();
   void dial(char * pnumber);
   void EndSMS();
   void StartSMS();
   int ReadLine();
-  char ReadSignal();
+  String ReadSignal();
   int ReceiveSMS();
   void Verbose(boolean var1);
   boolean Verbose();
