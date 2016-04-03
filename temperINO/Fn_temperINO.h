@@ -112,7 +112,6 @@ String GetTime() {
   bool PM;
   byte curhour = Clock.getHour(h12, PM);
   byte curminute = Clock.getMinute();
-  ora = curhour;
   currenttime = giorno+" "+printDigits(curday)+" "+mese+" - "+printDigits(curhour)+":"+printDigits(curminute);
   return currenttime;
 }
@@ -199,7 +198,7 @@ void PrintHeatStatus() {
     humanread_prog = "T3";
     break;
   default : // AUTO (9) : do not drop below 8 C except Fri 17:00 -> 21.59 and Sat 10:00 -> 13:59
-    if ( (giorno == "Fri" && (ora >= 17 && ora <= 22)) || (giorno == "Sat" && (ora >= 10 && ora < 14)) ) { 
+    if ( (giorno == "Fri" && (curhour >= 17 && curhour <= 22)) || (giorno == "Sat" && (curhour >= 10 && curhour < 14)) ) { 
       if ( measuredTemp <= 17.50 ) {
         tft.println("Heating:ON");
       } 

@@ -85,7 +85,7 @@ String humanread_prog;
 byte MANmenuOpen = 0;
 
 String giorno;
-byte ora;
+byte curhour;
 
 elapsedMillis timeElapsed;
 unsigned int interval = 10000; // milliseconds
