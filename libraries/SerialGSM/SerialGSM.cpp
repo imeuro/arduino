@@ -31,22 +31,7 @@ String SerialGSM::checkSignal(){
   this->println("AT+CSQ");
   return inmessage;
 }
-/*
-void SerialGSM::answer(){
-  this->println("ATA");
-}
 
-void SerialGSM::hungup(){
-  this->println("ATH");
-}
-
-void SerialGSM::dial(char * pnumber){
-  this->Rcpt(pnumber);
-  this->print("ATD");
-  this->println(pnumber);
-  //this->println('\r');
-}
-*/
 void SerialGSM::SendSMS(char * cellnumber,char * outmsg){
   this->Rcpt(cellnumber);
   if (verbose) Serial.println(rcpt);

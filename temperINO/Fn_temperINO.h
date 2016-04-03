@@ -322,7 +322,6 @@ void mainUI(unsigned char prog) { // initial UI state
   }
   Serial.print("new prog: "); 
   Serial.print(prog); 
-  Serial.println(MANmenuOpen); // prog  
 }
 
 void open_MANmenu() {

@@ -17,9 +17,6 @@ public:
   void SendSMS(char * cellnumber,char * outmsg);
   void DeleteAllSMS();
   void Reset();
-  //void answer();
-  //void hungup();
-  void dial(char * pnumber);
   void EndSMS();
   void StartSMS();
   int ReadLine();
