@@ -50,7 +50,7 @@ void loop(void) {
   if (timeElapsed > interval) {
     // update temp, signal, clock and program
     PrintTemp();
-    PrintSignal();
+    //PrintSignal();
     PrintTime();
     PrintHeatStatus();
     timeElapsed = 0;      // reset the counter to 0 so the counting starts over...

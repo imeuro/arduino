@@ -1,5 +1,5 @@
 void ProcessMsg() {
-String smscontent;
+char* smscontent;
 char* SMSreplytxt;
 char* SMSreplynum;
 

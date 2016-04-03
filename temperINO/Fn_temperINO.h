@@ -135,7 +135,7 @@ void PrintSignal() {
   rawsignal=rawsignal.substring(start+2,start+6);
   int Signal = rawsignal.toInt();
   //31:100=Signal:x
-  int tacchette =( (Signal*100)/31 )/25;
+  int tacchette =( (Signal*100)/31 );
   tft.setTextColor(WHITE);  
   tft.setTextSize(1);
   if (tacchette==0 or tacchette>4) { 
@@ -143,6 +143,7 @@ void PrintSignal() {
     tft.setCursor(15, 13);
     tft.println("No signal"); 
   } else {
+    /*
     tft.fillRect(15,8,45,15,BLACK);
     tft.fillRect(15,19,3,3,SILVER);
     tft.fillRect(20,16,3,6,SILVER);
@@ -152,8 +153,10 @@ void PrintSignal() {
     if (tacchette > 1 ) {  tft.fillRect(20,16,3,6,WHITE); }
     if (tacchette > 2 ) {  tft.fillRect(25,13,3,9,WHITE); }
     if (tacchette > 3 and tacchette<=4 ) {  tft.fillRect(30,10,3,12,WHITE); }
+    */
     tft.setCursor(40, 13);
-    tft.println("TIM"); 
+    tft.print(tacchette); 
+    tft.print("% I TIM"); 
   }
 }
 
@@ -168,7 +171,6 @@ void PrintHeatStatus() {
   switch (currentprog) {
   case 0 : // OFF : do nothing, it's probably summer!
     tft.println("Heating:OFF");
-    humanread_prog = "OFF";
     break;
   case 1 : // MAN/T1 : do not drop below 8 C
     if ( measuredTemp <= 8.00 ) {
@@ -177,7 +179,6 @@ void PrintHeatStatus() {
     else {
       tft.println("Heating:OFF");
     }			
-    humanread_prog = "T1";
     break;
   case 2 : // MAN/T2 : do not drop below 17.5 C
     if ( measuredTemp <= 17.50 ) {
@@ -186,7 +187,6 @@ void PrintHeatStatus() {
     else {
       tft.println("Heating:OFF");
     }
-    humanread_prog = "T2";
     break;
   case 3 : // MAN/T3 : do not drop below 20.5 C
     if ( measuredTemp <= 20.50 ) {
@@ -195,7 +195,6 @@ void PrintHeatStatus() {
     else {
       tft.println("Heating:OFF");
     }
-    humanread_prog = "T3";
     break;
   default : // AUTO (9) : do not drop below 8 C except Fri 17:00 -> 21.59 and Sat 10:00 -> 13:59
     if ( (giorno == "Fri" && (curhour >= 17 && curhour <= 22)) || (giorno == "Sat" && (curhour >= 10 && curhour < 14)) ) { 
@@ -214,7 +213,6 @@ void PrintHeatStatus() {
         tft.println("Heating:OFF");
       }
     }
-    humanread_prog = "AUTO";
     break;
   }
 }

@@ -79,6 +79,7 @@ DS3231 Clock;
 // 3 = MAN/T3
 // 9 = AUTO
 // 0 = OFF
+
 int currentprog = 9;
 String humanread_prog;
 
