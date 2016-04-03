@@ -37,8 +37,10 @@ char* SMSreplynum;
 
     char* tempCnum;
     char fullSMS[70];
+    delay(2000);
     tempCnum=itoa(tempC,tempCnum,6);
     Serial.println(tempCnum);
+    delay(2000);
     //dtostrf(tempC, 4, 2, &SMSreplytxt[70]);
     strcpy(fullSMS,SMSreplytxt);
     strcat(fullSMS,tempCnum);
