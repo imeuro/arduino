@@ -36,9 +36,11 @@ char* SMSreplynum;
       SMSreplytxt = "Comando non riconosciuto (es. \"Mergozzo T2\").";
     }
 
-    Serial.println(tempC);
+    String fullSMS;
     dtostrf(tempC, 4, 1, &SMSreplytxt[161]);
+    fullSMS.toCharArray(SMSreplytxt,161);
     delay(2000);
+    Serial.println(SMSreplytxt);
 
     //send sms confirmation to sender number
     cell.Rcpt(SMSreplynum);
