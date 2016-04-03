@@ -37,13 +37,14 @@ char* SMSreplynum;
     }
 
     Serial.println(tempC);
-    dtostrf(tempC, 4, 1, &SMSreplytxt[50]);
+    dtostrf(tempC, 4, 1, &SMSreplytxt[70]);
+    Serial.println(SMSreplytxt);
     delay(2000);
 
     //send sms confirmation to sender number
-    cell.Rcpt(SMSreplynum);
-    cell.Message(SMSreplytxt);
-    cell.SendSMS();
+    //cell.Rcpt(SMSreplynum);
+    //cell.Message(SMSreplytxt);
+    //cell.SendSMS();
     
     delay(2000);
     cell.DeleteAllSMS();
