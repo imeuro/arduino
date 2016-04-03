@@ -1,6 +1,6 @@
 void ProcessMsg() {
 String smscontent;
-char* SMSreplytxt;
+String SMSreplytxt;
 char* SMSreplynum;
 
     smscontent = cell.Message();

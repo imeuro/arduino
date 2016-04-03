@@ -139,11 +139,12 @@ void PrintSignal() {
   tft.fillRect(15,8,45,15,BLACK);
   tft.setTextColor(WHITE);  
   tft.setTextSize(1);
+  Serial.println(tacchette);
   if (tacchette==0 or tacchette>100) {
     tft.setCursor(15, 13);
     tft.println("No signal"); 
   } else {
-    /*
+    /* cool, but too heavy...
     tft.fillRect(15,8,45,15,BLACK);
     tft.fillRect(15,19,3,3,SILVER);
     tft.fillRect(20,16,3,6,SILVER);
@@ -154,9 +155,9 @@ void PrintSignal() {
     if (tacchette > 2 ) {  tft.fillRect(25,13,3,9,WHITE); }
     if (tacchette > 3 and tacchette<=4 ) {  tft.fillRect(30,10,3,12,WHITE); }
     */
-    tft.setCursor(40, 13);
-    tft.print(tacchette); 
-    tft.print(" I TIM"); 
+    tft.setCursor(15, 13);
+    //tft.print(tacchette); 
+    tft.print("I TIM"); 
   }
 }
 
