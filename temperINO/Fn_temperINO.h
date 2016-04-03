@@ -136,10 +136,10 @@ void PrintSignal() {
   int Signal = rawsignal.toInt();
   //31:100=Signal:x
   int tacchette =( (Signal*100)/31 );
+  tft.fillRect(15,8,45,15,BLACK);
   tft.setTextColor(WHITE);  
   tft.setTextSize(1);
-  if (tacchette==0 or tacchette>4) { 
-    tft.fillRect(15,8,45,15,BLACK);
+  if (tacchette==0 or tacchette>100) {
     tft.setCursor(15, 13);
     tft.println("No signal"); 
   } else {
@@ -156,7 +156,7 @@ void PrintSignal() {
     */
     tft.setCursor(40, 13);
     tft.print(tacchette); 
-    tft.print("% I TIM"); 
+    tft.print(" I TIM"); 
   }
 }
 

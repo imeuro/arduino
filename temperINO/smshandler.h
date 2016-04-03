@@ -1,5 +1,5 @@
 void ProcessMsg() {
-char* smscontent;
+String smscontent;
 char* SMSreplytxt;
 char* SMSreplynum;
 
@@ -37,7 +37,7 @@ char* SMSreplynum;
     }
 
     Serial.println(tempC);
-    dtostrf(tempC, 4, 1, &SMSreplytxt[50]);
+    dtostrf(tempC, 4, 1, &SMSreplytxt[70]);
     delay(2000);
 
     //send sms confirmation to sender number
