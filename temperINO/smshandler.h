@@ -5,7 +5,6 @@ char* SMSreplynum;
 
     smscontent = cell.Message();
     SMSreplynum = cell.Sender();
-    SMSreplytxt = "";
 
     if (smscontent == "Mergozzo OFF" or smscontent == "Mergozzo off") {
       set_heat_prog(0);
@@ -36,9 +35,14 @@ char* SMSreplynum;
       SMSreplytxt = "Comando non riconosciuto (es. \"Mergozzo T2\").";
     }
 
-    Serial.println(tempC);
-    dtostrf(tempC, 4, 1, &SMSreplytxt[70]);
-    Serial.println(SMSreplytxt);
+    char* tempCnum;
+    char fullSMS[70];
+    tempCnum=itoa(tempC,tempCnum,6);
+    Serial.println(tempCnum);
+    //dtostrf(tempC, 4, 2, &SMSreplytxt[70]);
+    strcpy(fullSMS,SMSreplytxt);
+    strcat(fullSMS,tempCnum);
+    Serial.println(fullSMS);
     delay(2000);
 
     //send sms confirmation to sender number

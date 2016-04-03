@@ -291,6 +291,9 @@ void mainUI(unsigned char prog) { // initial UI state
 
   // ln 1: temp
   PrintTemp();
+  
+  // ln 3: mode buttons
+  resetModeButtons(prog);
 
   // ln 2: program status
   tft.setCursor(10, 115); 
@@ -298,10 +301,6 @@ void mainUI(unsigned char prog) { // initial UI state
   tft.setTextSize(3);
   tft.println("Prog:");
 
-  // ln 3: mode buttons
-  resetModeButtons(prog);
-
-  // ln 2: program status
   tft.setCursor(150, 110);
   tft.setTextColor(WHITE);  
   tft.setTextSize(4);
@@ -321,7 +320,8 @@ void mainUI(unsigned char prog) { // initial UI state
     tft.print("OFF");
   }
   Serial.print("new prog: "); 
-  Serial.print(prog); 
+  Serial.print(prog);
+  Serial.println();
 }
 
 void open_MANmenu() {
