@@ -81,7 +81,6 @@ DS3231 Clock;
 // 0 = OFF
 
 int currentprog = 9;
-String humanread_prog;
 
 byte MANmenuOpen = 0;
 

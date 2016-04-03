@@ -1,6 +1,6 @@
 void ProcessMsg() {
 String smscontent;
-String SMSreplytxt;
+char* SMSreplytxt;
 char* SMSreplynum;
 
     smscontent = cell.Message();
@@ -37,7 +37,7 @@ char* SMSreplynum;
     }
 
     Serial.println(tempC);
-    dtostrf(tempC, 4, 1, &SMSreplytxt[70]);
+    dtostrf(tempC, 4, 1, &SMSreplytxt[161]);
     delay(2000);
 
     //send sms confirmation to sender number
