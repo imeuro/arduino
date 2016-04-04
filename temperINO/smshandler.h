@@ -35,16 +35,16 @@ char* SMSreplynum;
       SMSreplytxt = "Comando non riconosciuto (es. \"Mergozzo T2\").";
     }
 
-    char* tempCnum;
-    char fullSMS[70];
-    delay(2000);
-    tempCnum=itoa(tempC,tempCnum,6);
-    Serial.println(tempCnum);
-    delay(2000);
+    //char tempCnum[6];
+    //char fullSMS[70];
+    //delay(2000);
+    //tempCnum=itoa(tempC,tempCnum,6);
+    //Serial.println(tempCnum);
+    //delay(2000);
     //dtostrf(tempC, 4, 2, &SMSreplytxt[70]);
-    strcpy(fullSMS,SMSreplytxt);
-    strcat(fullSMS,tempCnum);
-    Serial.println(fullSMS);
+    //strcpy(fullSMS,SMSreplytxt);
+    //strcat(fullSMS,tempC);
+    //Serial.println(fullSMS);
     delay(2000);
 
     //send sms confirmation to sender number
@@ -52,6 +52,6 @@ char* SMSreplynum;
     //cell.Message(SMSreplytxt);
     //cell.SendSMS();
     
-    delay(2000);
-    cell.DeleteAllSMS();
+    //delay(2000);
+    //cell.DeleteAllSMS();
 }
