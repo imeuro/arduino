@@ -48,21 +48,9 @@ void loop(void) {
   //pinMode(YM, OUTPUT);
 
   if (timeElapsed > interval) {
-
-  char* testSMSreplytxt;
-  char testfullSMS[70];
-  testSMSreplytxt="gigigiigi ";
-  //delay(2000);
-  //delay(2000);
-  dtostrf(tempC, 4, 2, &testSMSreplytxt[70]);
-  //strcpy(testfullSMS,testSMSreplytxt);
-  //strcat(testfullSMS,tempC);
-  Serial.println(testSMSreplytxt);
-
-
     // update temp, signal, clock and program
     PrintTemp();
-    //PrintSignal();
+    PrintSignal();
     PrintTime();
     PrintHeatStatus();
     timeElapsed = 0;      // reset the counter to 0 so the counting starts over...
