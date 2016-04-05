@@ -80,10 +80,8 @@ DS3231 Clock;
 // 9 = AUTO
 // 0 = OFF
 
-int currentprog = 9;
-
+byte currentprog = 9;
 byte MANmenuOpen = 0;
-
 String giorno;
 byte curhour;
 

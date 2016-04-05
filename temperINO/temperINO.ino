@@ -8,10 +8,13 @@
 // ora e temp
 #include <DS3231.h>                 //https://github.com/YoungxHelsinki/DS3231_weekday_accessible
 #include <Wire.h>                   //http://arduino.cc/en/Reference/Wire (included with Arduino IDE)
+// reset
+#include <avr/wdt.h>
 
 #include "vars_temperINO.h"       // Vars and defines
 #include "Fn_temperINO.h"         // Functions
 #include "smshandler.h"             // receive and send sms
+
 
 
 void setup(void) {

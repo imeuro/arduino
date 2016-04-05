@@ -31,24 +31,28 @@ char* SMSreplynum;
       mainUI(9);
       SMSreplytxt = "Status: \"AUTO\"\nTemp: ";
     }
+    else if (smscontent=="Mergozzo RESET" or smscontent=="Mergozzo reset"){
+    	softwareReset( WDTO_60MS);
+    	SMSreplytxt = "";
+    }
     else {
       SMSreplytxt = "Errore!  (es. Mergozzo T2)";
     }
-
-  char curTemp[6];
-  char fullSMS[70];
-  dtostrf(tempC, 4, 1, curTemp);
-  strcpy(fullSMS,SMSreplytxt);
-  strcat(fullSMS,curTemp);
-  Serial.println(fullSMS);
-
-    delay(2000);
-
-    //send sms confirmation to sender number
-    cell.Rcpt(SMSreplynum);
-    cell.Message(fullSMS);
-    cell.SendSMS();
     
-    //delay(2000);
-    cell.DeleteAllSMS();
+		if (SMSreplytxt != "") {	// compose and send sms confirmation to sender number
+			char curTemp[6];
+			char fullSMS[70];
+			dtostrf(tempC, 4, 1, curTemp);
+			strcpy(fullSMS,SMSreplytxt);
+			strcat(fullSMS,curTemp);
+			Serial.println(fullSMS);
+
+			delay(2000);
+		
+			cell.Rcpt(SMSreplynum);
+			cell.Message(fullSMS);
+			cell.SendSMS();
+			delay(2000);
+			cell.DeleteAllSMS();
+		}
 }

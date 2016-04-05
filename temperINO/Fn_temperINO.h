@@ -228,7 +228,7 @@ void PrintHeatStatus() {
 // DRAW THE UI
 //////////////////////////////////////////////
 
-void resetModeButtons(unsigned char prog) { // resets button state after prog is set
+void resetModeButtons(byte prog) { // resets button state after prog is set
   MANmenuOpen = 0; // MANmenu is closed
   delay(200);
   tft.fillRect(10, 95, 300, 70, BLACK);
@@ -283,7 +283,7 @@ void resetModeButtons(unsigned char prog) { // resets button state after prog is
   }
 }
 
-void mainUI(unsigned char prog) { // initial UI state
+void mainUI(byte prog) { // initial UI state
   MANmenuOpen = 0; // MANmenu is closed
   unsigned long start = micros();
 
@@ -355,15 +355,18 @@ void close_MANmenu() {
 //////////////////////////////////////////////
 
 
-
-
-
-
-//////////////////////////////////////////////
-// SET DATA
-//////////////////////////////////////////////
-int set_heat_prog(unsigned char set_prog) {
+byte set_heat_prog(byte set_prog) {
   currentprog = set_prog;
   mainUI(currentprog);
   return currentprog;
 }
+
+void softwareReset( uint8_t prescaller) {
+  // start watchdog with the provided prescaller
+  wdt_enable( prescaller);
+  // wait for the prescaller time to expire
+  // without sending the reset signal by using
+  // the wdt_reset() method
+  while(1) {}
+}
+
