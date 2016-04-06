@@ -3,11 +3,11 @@
 #include <Adafruit_TFTLCD.h>        // Hardware-specific library
 #include <TouchScreen.h>            // Standard touchscreen library
 // gsm shield
-#include <SerialGSM.h>              // light library: just sms, calls and signal
+#include <SerialGSM.h>              // light library: just sms and cell signal
 #include <SoftwareSerial.h>
 // ora e temp
 #include <DS3231.h>                 //https://github.com/YoungxHelsinki/DS3231_weekday_accessible
-#include <Wire.h>                   //http://arduino.cc/en/Reference/Wire (included with Arduino IDE)
+#include <Wire.h>                   		//http://arduino.cc/en/Reference/Wire (included with Arduino IDE)
 // reset
 #include <avr/wdt.h>
 

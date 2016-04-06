@@ -139,8 +139,8 @@ void PrintSignal() {
   tft.fillRect(15,8,45,15,BLACK);
   tft.setTextColor(WHITE);  
   tft.setTextSize(1);
-  Serial.println(tacchette);
-  if (tacchette==0 or tacchette>100) {
+  //Serial.println(tacchette);
+  if (tacchette==0 or tacchette>4) {
     tft.setCursor(15, 13);
     tft.println("No signal"); 
   } else {
@@ -150,9 +150,9 @@ void PrintSignal() {
     tft.fillRect(25,13,3,9,SILVER);
     tft.fillRect(30,10,3,12,SILVER);
     if (tacchette > 0 ) {  tft.fillRect(15,19,3,3,WHITE); }
-    if (tacchette > 1 ) {  tft.fillRect(20,16,3,6,WHITE); }
-    if (tacchette > 2 ) {  tft.fillRect(25,13,3,9,WHITE); }
-    if (tacchette > 3 and tacchette<=4 ) {  tft.fillRect(30,10,3,12,WHITE); }
+    if (tacchette >= 1 ) {  tft.fillRect(20,16,3,6,WHITE); }
+    if (tacchette >= 2 ) {  tft.fillRect(25,13,3,9,WHITE); }
+    if (tacchette >= 3 and tacchette<=4 ) {  tft.fillRect(30,10,3,12,WHITE); }
     tft.setCursor(40, 13);
     //tft.print(tacchette); 
     tft.print("I TIM"); 
@@ -317,9 +317,9 @@ void mainUI(byte prog) { // initial UI state
   if ( prog == 0 ) {
     tft.print("OFF");
   }
-  Serial.print("new prog: "); 
-  Serial.print(prog);
-  Serial.println();
+  //Serial.print("new prog: "); 
+  //Serial.print(prog);
+  //Serial.println();
 }
 
 void open_MANmenu() {

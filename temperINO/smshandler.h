@@ -41,11 +41,11 @@ char* SMSreplynum;
     
 		if (SMSreplytxt != "") {	// compose and send sms confirmation to sender number
 			char curTemp[6];
-			char fullSMS[70];
+			char fullSMS[40];
 			dtostrf(tempC, 4, 1, curTemp);
 			strcpy(fullSMS,SMSreplytxt);
 			strcat(fullSMS,curTemp);
-			Serial.println(fullSMS);
+			//Serial.println(fullSMS);
 
 			delay(2000);
 		
