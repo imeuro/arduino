@@ -1,14 +1,13 @@
 #include <elapsedMillis.h>          // Timer library
 #include <Adafruit_GFX.h>           // Core graphics library
-#include <SPI.h>
-#include <Wire.h>      // this is needed even tho we aren't using it
-#include <Adafruit_ILI9341.h>
-#include <Adafruit_STMPE610.h>
+#include <Adafruit_TFTLCD.h>        // Hardware-specific library
+#include <TouchScreen.h>            // Standard touchscreen library
 // gsm shield
 #include <SerialGSM.h>              // light library: just sms and cell signal
 #include <SoftwareSerial.h>
 // ora e temp
 #include <DS3231.h>                 //https://github.com/YoungxHelsinki/DS3231_weekday_accessible
+#include <Wire.h>                   		//http://arduino.cc/en/Reference/Wire (included with Arduino IDE)
 // reset
 #include <avr/wdt.h>
 
@@ -21,34 +20,35 @@
 void setup(void) {
 
   Serial.begin(9600);
-  //Wire.begin();
-  tft.begin();
   
-  //tft.setRotation(1);
-  tft.fillScreen(ILI9341_BLACK);
+  Wire.begin();
 
-  //mainUI(9);              // at startup goes in AUTO prog
-  //set_heat_prog(9);       // at startup goes in AUTO prog
+  tft.reset();
+  tft.begin(0x9341);//this is important!!!
+  tft.setRotation(1);
+  tft.fillScreen(BLACK);
+
+  mainUI(9);              // at startup goes in AUTO prog
+  set_heat_prog(9);       // at startup goes in AUTO prog
   
-  //cell.begin(9600);
-  //cell.Verbose(true);
-  //cell.Boot(); 
-  //cell.FwdSMS2Serial();
+  cell.begin(9600);
+  cell.Verbose(true);
+  cell.Boot(); 
+  cell.FwdSMS2Serial();
 
 }
 
 void loop(void) {
   
-  TS_Point p = ts.getPoint();
-  // Scale from ~0->4000 to tft.width using the calibration #'s
-  p.x = map(p.x, TS_MINX, TS_MAXX, 0, tft.width());
-  p.y = map(p.y, TS_MINY, TS_MAXY, 0, tft.height());
+  digitalWrite(13, HIGH);
+  TSPoint p = ts.getPoint();
+  digitalWrite(13, LOW);
 
-  
-  Serial.print("("); Serial.print(p.x);
-  Serial.print(", "); Serial.print(p.y);
-  Serial.println(")");
-  
+  // if sharing pins, you'll need to fix the directions of the touchscreen pins
+  //pinMode(XP, OUTPUT);
+  pinMode(XM, OUTPUT);
+  pinMode(YP, OUTPUT);
+  //pinMode(YM, OUTPUT);
 
   if (timeElapsed > interval) {
     // update temp, signal, clock and program
@@ -60,13 +60,20 @@ void loop(void) {
   }
 
 
-  //if (cell.ReceiveSMS()){
-  //  ProcessMsg();
-  //}
+  if (cell.ReceiveSMS()){
+    ProcessMsg();
+  }
   
+
+  if (p.z > MINPRESSURE && p.z < MAXPRESSURE) {
+    
+    p.x = tft.width()-(map(p.x, TS_MINX, TS_MAXX, tft.width(), 0)); // da 70 a 300
+    p.y = tft.height()-(map(p.y, TS_MINY, TS_MAXY, tft.height(), 0)); // da 20 a 230
+    //Serial.print("X = "); Serial.print(p.x);
+    //Serial.print("\tY = "); Serial.println(p.y);
     
     // OFF,AUTO o MAN
-    /*if (p.x < 130) { // fascia bassa
+    if (p.x < 130) { // fascia bassa
       if (p.y < 80 && MANmenuOpen == 0) { // MAN
         tft.fillRect(220, 170, 90, 50, YELLOW);
         tft.setCursor(248, 188);
@@ -111,8 +118,7 @@ void loop(void) {
         }
       }
     }
-  */  
-
+    
+  }
 
 }
-

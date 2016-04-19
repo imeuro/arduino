@@ -56,4 +56,3 @@ char* SMSreplynum;
 			cell.DeleteAllSMS();
 		}
 }
-

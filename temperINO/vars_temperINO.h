@@ -2,47 +2,23 @@
 // Project Components setup:
 //////////////////////////////////////
 
-// Pixnor UNO R3 2.8'' TFT
+// Adafruit 2.8'' TFT v2.0
 // ===================================
-#define USE_ADAFRUIT_SHIELD_PINOUT
+// This is calibration data for the raw touch data to the screen coordinates
+#define TS_MINX 150
+#define TS_MINY 130
+#define TS_MAXX 3800
+#define TS_MAXY 4000
 
-#if defined(__SAM3X8E__)
-    #undef __FlashStringHelper::F(string_literal)
-    #define F(string_literal) string_literal
-#endif
+// The STMPE610 uses hardware SPI on the shield, and #8
+#define STMPE_CS 8
+Adafruit_STMPE610 ts = Adafruit_STMPE610(STMPE_CS);
 
-// These are the pins for the shield!
-#define YP A3  // must be an analog pin, use "An" notation!
-#define XM A2  // must be an analog pin, use "An" notation!
-#define YM 9   // can be a digital pin
-#define XP 8   // can be a digital pin
+// The display also uses hardware SPI, plus #9 & #10
+#define TFT_CS 10
+#define TFT_DC 9
+Adafruit_ILI9341 tft = Adafruit_ILI9341(TFT_CS, TFT_DC);
 
-#ifdef __SAM3X8E__
-  #define TS_MINX 125
-  #define TS_MINY 170
-  #define TS_MAXX 880
-  #define TS_MAXY 940
-#else
-  #define TS_MINX  0
-  #define TS_MINY  120
-  #define TS_MAXX  920
-  #define TS_MAXY  940
-#endif
-
-// For better pressure precision, we need to know the resistance
-// between X+ and X- Use any multimeter to read it
-// For the one we're using, its 300 ohms across the X plate
-TouchScreen ts = TouchScreen(XP, YP, XM, YM, 300);
-
-
-// The control pins for the LCD can be assigned to any digital or
-// analog pins...but we'll use the analog pins as this allows us to
-// double up the pins with the touch screen (see the TFT paint example).
-#define LCD_CS A3 //A3 // Chip Select goes to Analog 3
-#define LCD_CD A2 //A2 // Command/Data goes to Analog 2
-#define LCD_WR A1 //A1 // LCD Write goes to Analog 1
-#define LCD_RD A0 //A0 // LCD Read goes to Analog 0
-#define LCD_RESET A4 //reset // Can alternately just connect to Arduino's reset pin
 
 // Assign human-readable names to some common 16-bit color values:
 #define	BLACK   0x0000
@@ -55,12 +31,9 @@ TouchScreen ts = TouchScreen(XP, YP, XM, YM, 300);
 #define MINPRESSURE 0
 #define MAXPRESSURE 1000
 
-Adafruit_TFTLCD tft(LCD_CS, LCD_CD, LCD_WR, LCD_RD, LCD_RESET);
-
-
 // Arduino GSM Shield
 // ===================================
-SerialGSM cell(12,11);
+SerialGSM cell(2,3);
 
 // Clock w/ battery + Temp sensor
 // ===================================
@@ -89,3 +62,4 @@ elapsedMillis timeElapsed;
 unsigned int interval = 60*1000; // milliseconds
 
 float tempC;
+
