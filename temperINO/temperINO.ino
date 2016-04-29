@@ -1,7 +1,7 @@
 #include <elapsedMillis.h>          // Timer library
 #include <Adafruit_GFX.h>           // Core graphics library
 #include <SPI.h>
-#include <Wire.h>      // this is needed even tho we aren't using it
+#include <Wire.h>                   // this is needed even tho we aren't using it
 #include <Adafruit_ILI9341.h>
 #include <Adafruit_STMPE610.h>
 // gsm shield
@@ -12,8 +12,8 @@
 // reset
 #include <avr/wdt.h>
 
-#include "vars_temperINO.h"       // Vars and defines
-#include "Fn_temperINO.h"         // Functions
+#include "vars_temperINO.h"         // Vars and defines
+#include "Fn_temperINO.h"           // Functions
 #include "smshandler.h"             // receive and send sms
 
 
@@ -27,7 +27,7 @@ void setup(void) {
     Serial.println("Couldn't start touchscreen controller");
     while (1);
   }
-  tft.setRotation(1);
+  tft.setRotation(1);     // ---> TODO: set to 3
   tft.fillScreen(BLACK);
 
   mainUI(9);              // at startup goes in AUTO prog
@@ -41,45 +41,37 @@ void setup(void) {
 }
 
 void loop(void) {
- // See if there's any  touch data for us
-  if (ts.bufferEmpty()) {
-    return;
-  }
-  /*
-  // You can also wait for a touch
-  if (! ts.touched()) {
-    return;
-  }
-  */
 
-  // Retrieve a point  
-  TS_Point p = ts.getPoint();
-
-  // Scale from ~0->4000 to tft.width using the calibration #'s
-  p.x = map(p.x, TS_MINX, TS_MAXX, 0, tft.width());
-  p.y = map(p.y, TS_MINY, TS_MAXY, 0, tft.height());
-
-  
-  //Serial.print("("); Serial.print(p.x);
-  //Serial.print(", "); Serial.print(p.y);
-  //Serial.println(")");
-  
-
-  if (timeElapsed > interval) {
+  if (timeElapsed > INTERVAL) {
+    timeElapsed -= INTERVAL; //reset the timer
     // update temp, signal, clock and program
     PrintTemp();
     PrintSignal();
     PrintTime();
     PrintHeatStatus();
-    timeElapsed = 0;      // reset the counter to 0 so the counting starts over...
   }
 
 
   if (cell.ReceiveSMS()){
     ProcessMsg();
   }
+
+
+ // See if there's any  touch data for us
+  if (!ts.bufferEmpty())
+  {   
+    // Retrieve a point  
+    TS_Point p = ts.getPoint(); 
+    // Scale using the calibration #'s
+    // and rotate coordinate system
+    p.x = map(p.x, TS_MINY, TS_MAXY, 0, tft.height());
+    p.y = map(p.y, TS_MINX, TS_MAXX, 0, tft.width());
   
-    
+    //Serial.print("("); Serial.print(p.x);
+    //Serial.print(", "); Serial.print(p.y);
+    //Serial.println(")");
+
+
     // OFF,AUTO o MAN
     if (p.x < 130) { // fascia bassa
       if (p.y >160 && MANmenuOpen == 0) { // MAN
@@ -126,7 +118,9 @@ void loop(void) {
         }
       }
     }
-  
+
+
+  }  
 
 
 }
