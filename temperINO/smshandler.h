@@ -45,7 +45,7 @@ char* SMSreplynum;
 			dtostrf(tempC, 4, 1, curTemp);
 			strcpy(fullSMS,SMSreplytxt);
 			strcat(fullSMS,curTemp);
-			//Serial.println(fullSMS);
+			Serial.println(fullSMS);
 
 			delay(2000);
 		

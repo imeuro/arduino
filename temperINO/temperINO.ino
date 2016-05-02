@@ -27,7 +27,7 @@ void setup(void) {
     Serial.println("Couldn't start touchscreen controller");
     while (1);
   }
-  tft.setRotation(1);     // ---> TODO: set to 3
+  tft.setRotation(1);
   tft.fillScreen(BLACK);
 
   mainUI(9);              // at startup goes in AUTO prog
@@ -62,29 +62,34 @@ void loop(void) {
   {   
     // Retrieve a point  
     TS_Point p = ts.getPoint(); 
+    while (ts.touched()) {
+        p = ts.getPoint();
+    }
     // Scale using the calibration #'s
     // and rotate coordinate system
     p.x = map(p.x, TS_MINY, TS_MAXY, 0, tft.height());
     p.y = map(p.y, TS_MINX, TS_MAXX, 0, tft.width());
+    int y = tft.height() - p.x;
+    int x = p.y;
   
-    //Serial.print("("); Serial.print(p.x);
-    //Serial.print(", "); Serial.print(p.y);
-    //Serial.println(")");
+    Serial.print("(x="); Serial.print(x);
+    Serial.print(", y="); Serial.print(y);
+    Serial.println(")");
 
 
     // OFF,AUTO o MAN
-    if (p.x < 130) { // fascia bassa
-      if (p.y >160 && MANmenuOpen == 0) { // MAN
+    if (y > 160) { // fascia bassa
+      if (x >210 && MANmenuOpen == 0) { // MAN
         tft.fillRect(220, 170, 90, 50, YELLOW);
         tft.setCursor(248, 188);
         tft.setTextColor(BLACK);  tft.setTextSize(2);
         tft.print("MAN");
         open_MANmenu();
       } 
-      else if (p.y < 80 && MANmenuOpen == 1) { // MAN
+      else if (x < 210 && MANmenuOpen == 1) { // MAN
         close_MANmenu();
       } 
-      else if (p.y >= 80 && p.y <= 160) { // AUTO
+      else if (x >= 110 && x <= 200) { // AUTO
         tft.fillRect(110, 170, 100, 50, GREEN);
         tft.setCursor(138, 188);
         tft.setTextColor(BLACK);  tft.setTextSize(2);
@@ -92,7 +97,7 @@ void loop(void) {
         mainUI(9);
         set_heat_prog(9);
       }
-      else if (p.y < 80) { //OFF
+      else if (x < 100) { //OFF
         tft.fillRect(10, 170, 90, 50, WHITE);
         tft.setCursor(38, 188);
         tft.setTextColor(BLACK);  tft.setTextSize(2);
@@ -102,17 +107,17 @@ void loop(void) {
       }      
     }
     else if (MANmenuOpen == 1) {
-      if (p.x > 110 && p.x < 240) {
+      if (y > 100 && y < 170) {
         tft.setTextColor(BLACK);  tft.setTextSize(2);
-        if (p.y > 160) { // T3
+        if (x > 210) { // T3
           mainUI(3);
           set_heat_prog(3);
         }
-        else if (p.y >= 80 && p.y <= 160) { // T2
+        else if (x >= 110 && x <= 200) { // T2
           mainUI(2);
           set_heat_prog(2);
         }
-      else if (p.y < 80) { // T1
+      else if (x < 100) { // T1
           mainUI(1);
           set_heat_prog(1);
         }
