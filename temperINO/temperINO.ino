@@ -86,7 +86,7 @@ void loop(void) {
         tft.print("MAN");
         open_MANmenu();
       } 
-      else if (x < 210 && MANmenuOpen == 1) { // MAN
+      else if (x > 210 && MANmenuOpen == 1) { // MAN
         close_MANmenu();
       } 
       else if (x >= 110 && x <= 200) { // AUTO
