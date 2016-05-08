@@ -59,7 +59,7 @@ String giorno;
 byte curhour;
 
 elapsedMillis timeElapsed;
-#define INTERVAL 5000 // milliseconds
+#define INTERVAL 60000 // milliseconds
 
 float tempC;
 
